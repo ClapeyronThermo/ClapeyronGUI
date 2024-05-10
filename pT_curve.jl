@@ -1,5 +1,5 @@
 function pT_curve(model;Npoints=200,color=:red, style=:solid)
-    plt = Plots.plot(grid=:off,framestyle=:box,foreground_color_legend = nothing,legend_font=Plots.font(12))
+    plt = Plots.plot(grid=:off,framestyle=:box,foreground_color_legend = nothing,legend_font=Plots.font(12), tickfontsize=12)
 
     pmax = 0.
     pmin = Inf

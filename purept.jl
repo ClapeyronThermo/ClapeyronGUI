@@ -1,9 +1,8 @@
-module PURE
+module PUREPT
 using GenieFramework, StippleUI
-using Clapeyron
+using Clapeyron, ThermoPlots
 import PlotlyBase, PlotlyKaleido, Plots
 Plots.plotly()
-include("pt_curve.jl") 
 
 @app begin
     @in species = "water"

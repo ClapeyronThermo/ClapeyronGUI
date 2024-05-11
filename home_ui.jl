@@ -15,8 +15,9 @@ Html.div(style="display: flex; gap: 20px; font-size: 1.5em;",
             var"header-class" = "bg-blue-1",
             list(bordered = true,
             class = "rounded-borders",
-            [item(clickable = true, a(href="$(Router.link_to(:get_pure))", style="text-decoration: none;; color: #000000;","Pure PT curve")),
-            item(clickable = true, a(href="$(Router.link_to(:get_pure))", style="text-decoration: none;; color: #000000;","Pure ρT curve"))
+            [item(clickable = true, a(href="$(Router.link_to(:get_purept))", style="text-decoration: none;; color: #000000;","Saturation curve")),
+            item(clickable = true, a(href="$(Router.link_to(:get_purerhot))", style="text-decoration: none;; color: #000000;","VLE envelope")),
+            item(clickable = true, a(href="$(Router.link_to(:get_mixpxy))", style="text-decoration: none;; color: #000000;","Binary <em>pxy</em> diagram")),
             ]
                 )
                 ))

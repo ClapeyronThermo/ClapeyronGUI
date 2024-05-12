@@ -1,18 +1,12 @@
-cell(style="display: flex; justify-content: space-between; align-items: center; background-color: #4063D8; padding: 10px 50px; color: #ffffff; top: 0; width: 100%; box-sizing: border-box;", [
-    cell(style="font-size: 1.5em; font-weight: bold;",[
-        a("Clapeyron.jl",href="$(Router.link_to(:get_home))", style="text-decoration: none; color: #ffffff;"),
-        ]
-    ),
-    Html.div(style="display: flex; gap: 20px;", [
-        a(href="$(Router.link_to(:get_purept))", style="text-decoration: none; color: #ffffff;",
-            "Research"
-        ),
-        a(href="$(Router.link_to(:get_purept))", style="text-decoration: none; color: #ffffff;",
-            "People"
-        ),
-        a(href="$(Router.link_to(:get_purept))", target="_blank", style="text-decoration: none; color: #ffffff;",
-            "Examples"
-        )
-    ])
-])
-page(model, [@yield])
+toolbar(class="text-primary", style="background-color: #4063D8", [
+          a(btn( flat=true, dense=true, icon="img:https://raw.githubusercontent.com/ClapeyronThermo/Clapeyron.jl/master/docs/src/assets/logo.svg"), href="$(Router.link_to(:get_home))"),
+          toolbartitle("Clapeyron",style = "color: #ffffff; font-family:ubuntu; font-size: 1.7em; font-weight: bold;"),
+          a(btn("Research",style = "color: #ffffff"),href="$(Router.link_to(:get_research))"),
+          a(btn("People",style = "color: #ffffff"),href="$(Router.link_to(:get_people))"),
+          btn("Examples",style = "color: #ffffff", [StippleUI.menu(
+            [item(clickable = true, a(href="$(Router.link_to(:get_purept))", style="text-decoration: none;; color: #000000;","Saturation curve")),
+            item(clickable = true, a(href="$(Router.link_to(:get_purerhot))", style="text-decoration: none;; color: #000000;","VLE envelope")),
+            item(clickable = true, a(href="$(Router.link_to(:get_mixpxy))", style="text-decoration: none;; color: #000000;","Binary <em>pxy</em> diagram")),
+            ]
+                )]),
+       ])

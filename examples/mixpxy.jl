@@ -26,7 +26,7 @@ Plots.plotly()
         eos = Symbol(Select_eos)
         model = @eval $eos([$species1,$species2])
 
-        plt = pxy_diagram(model, T; color=color[mod(7,i)+1])
+        plt = pxy_diagram(model, temp; color=color[mod(7,i)+1])
         trace = Plots.plotly_traces(plt)
         layout = Plots.plotly_layout(plt)
     end
@@ -35,7 +35,7 @@ Plots.plotly()
         i += 1
         eos = Symbol(Select_eos)
         model = @eval $eos([$species1,$species2])
-        pxy_diagram!(plt,model, T; color=color[mod(7,i)+1])
+        pxy_diagram!(plt,model, temp; color=color[mod(7,i)+1])
         trace = Plots.plotly_traces(plt)
         layout = Plots.plotly_layout(plt)
     end

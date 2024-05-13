@@ -1,6 +1,6 @@
 module PURERHOT
 using GenieFramework, StippleUI
-using Clapeyron, ThermoPlots
+using Clapeyron, Main.ThermoPlots
 import PlotlyBase, PlotlyKaleido, Plots
 Plots.plotly()
 

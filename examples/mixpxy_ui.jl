@@ -1,8 +1,7 @@
 include("layout.jl")
 
 row([cell(class="st-col col-2", [
-        select(:Select_eos, options = :Select_eos_list, label = "Equation of State"),
-        plot(:trace, layout=:layout)
+        select(:Select_eos, options = :Select_eos_list, label = "Equation of State")
         ]), 
         cell(class="st-col col-2", [
         textfield("Species 1:", :species1)
@@ -20,3 +19,6 @@ row([cell(class="st-col col-2", [
         btn("Add", @click(:add_button), loading=:add_button)
        ])
        ])
+row([cell(class="st-col col-8", [
+        plot(:trace, layout=:layout)
+        ])])

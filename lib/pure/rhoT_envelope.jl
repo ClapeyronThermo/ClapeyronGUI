@@ -1,6 +1,8 @@
-function rhoT_envelope(model;Npoints=200,color=:red,style=:solid)
-    plt = plot(grid=:off,framestyle=:box,foreground_color_legend = nothing,legend_font=font(12))
-
+function rhoT_envelope(model;Npoints=200,color="red", style="solid")
+    layout = Layout(xaxis = attr(title = "Density / (mol/dm³)", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true),
+    yaxis = attr(title = "Temperature / K", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true),
+    showlegend=false, plot_bgcolor="white")
+    plt = plot(scatter(),layout)
     vmin = Inf
     vmax = 0.
     Tmin = Inf
@@ -10,11 +12,11 @@ function rhoT_envelope(model;Npoints=200,color=:red,style=:solid)
     return plt
 end
 
-function rhoT_envelope!(plt,model;Npoints=200,color=:red,style=:solid)
-    v = plt.series_list[1].plotattributes[:x_extrema]
+function rhoT_envelope!(plt,model;Npoints=200,color="red", style="solid")
+    v = plt.plot.layout[:xaxis][:range]
     vmax = 1e-3/v[1]
     vmin = 1e-3/v[2]
-    T = plt.series_list[1].plotattributes[:y_extrema]
+    T = plt.plot.layout[:yaxis][:range]
     Tmax = T[2]
     Tmin = T[1]
 
@@ -22,7 +24,7 @@ function rhoT_envelope!(plt,model;Npoints=200,color=:red,style=:solid)
     return plt
 end
 
-function _rhoT_envelope!(plt,model,vmin,vmax,Tmin,Tmax; Npoints=200, color=:red, style=:solid)
+function _rhoT_envelope!(plt,model,vmin,vmax,Tmin,Tmax; Npoints=200,color="red", style="solid")
     vsat = zeros(2*Npoints)
     T = zeros(2*Npoints)
 
@@ -35,19 +37,19 @@ function _rhoT_envelope!(plt,model,vmin,vmax,Tmin,Tmax; Npoints=200, color=:red,
     T[1:Npoints] .= t
     T[Npoints+1:2*Npoints] .= reverse(t)
 
-    plot!(plt,1e-3 ./vsat,T,color=color,line = (:path, 3),label = false)
-    plot!(plt,[1e-3/Vc],[Tc],seriestype=:scatter,color=color,markerstrokecolor=color, line = (:scatter, 0.5),label = false)
-
+    line_sat = scatter(x=1e-3 ./vsat,y=T,mode="lines",line=attr(color=color, dash=style, width=2),name="VLE curve")
+    scatter_sat = scatter(x=[1e-3/Vc],y=[Tc],mode="markers",marker=attr(color=color, size=5),name="Critical point")
+    addtraces!(plt,line_sat,scatter_sat)
+    
     Tmin = maximum([T[1],Tmin])
     Tmax = maximum([Tc*1.05,Tmax])
+
+    update!(plt,layout=Layout(yaxis = attr(range = [Tmin,Tmax])))
 
     vmin = minimum([vsat[1]*0.95,vmin])
     vmax = maximum([vsat[end]*1.05,vmax])
 
-    ylabel!(plt,"Temperature / K",xguidefontsize=12)
-    xlabel!(plt,"Density / (mol/dm³)",yguidefontsize=12)
-    xlims!(plt,(1e-3/vmax,1e-3/vmin))
-    ylims!(plt,(Tmin,Tmax))
+    update!(plt,layout=Layout(xaxis = attr(range = [1e-3/vmax,1e-3/vmin])))
     return plt
 end
     

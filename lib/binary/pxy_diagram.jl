@@ -4,7 +4,10 @@
 function pxy_diagram(model,T;iscrit=nothing,check_lle=false,lle_present=false,Npoints=200,color=:red,style=:solid)
 
     # Basic settings for the plot
-    plt = plot(grid=:off,framestyle=:box,foreground_color_legend = nothing,legend_font=font(12))
+    layout = Layout(xaxis = attr(title = "Molar composition of "*model.components[1], font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true),
+                    yaxis = attr(title = "Pressure / bar", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true),
+                    showlegend=false, plot_bgcolor="white")
+    plt = plot(scatter(),layout)
     pmax = 0.
     pmin = Inf
 
@@ -13,7 +16,7 @@ function pxy_diagram(model,T;iscrit=nothing,check_lle=false,lle_present=false,Np
 end
 
 function pxy_diagram!(plt,model,T;iscrit=nothing,check_lle=false,lle_present=false,Npoints=200,color=:red,style=:solid)
-    p = plt.series_list[1].plotattributes[:y_extrema]
+    p = plt.plot.layout[:yaxis][:range]
     pmax = p[2]*1e5
     pmin = p[1]*1e5
     _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=iscrit,check_lle=check_lle,lle_present=lle_present,Npoints=Npoints,color=color,style=style)
@@ -108,9 +111,9 @@ function _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=nothing,check_lle=false, che
                         xx0 = x[idx_vlle[2]+idx[2],l]
                         p0 = p[idx[1],l]
 
-                        vll0 = log10(volume(model,p0,T,[xx0,1-xx0];phase=:l))
-                        vl0 = log10(volume(model,p0,T,[x0,1-x0];phase=:l))
-                        vv0 = log10(volume(model,p0,T,[y0,1-y0];phase=:v))
+                        vll0 = log10(Clapeyron.volume(model,p0,T,[xx0,1-xx0];phase=:l))
+                        vl0 = log10(Clapeyron.volume(model,p0,T,[x0,1-x0];phase=:l))
+                        vv0 = log10(Clapeyron.volume(model,p0,T,[y0,1-y0];phase=:v))
 
                         v0_vlle = [vl0,vll0,vv0,x0,xx0,y0]
                         vlle = VLLE_pressure(model,T;v0=v0_vlle)
@@ -119,7 +122,8 @@ function _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=nothing,check_lle=false, che
                         xx_vlle = vlle[6][1]
                         y_vlle = vlle[7][1]
 
-                        plot!(plt,sort([xx_vlle,x_vlle,y_vlle]),[p_vlle,p_vlle,p_vlle]./1e5,color=color,linestyle=style,line = (:path, 2),label = false)
+                        line_vlle = scatter(x=sort([xx_vlle,x_vlle,y_vlle]),y=[p_vlle,p_vlle,p_vlle]./1e5,mode="lines",line=attr(color=color, dash=style, width=2),name="VLLE curve")
+                        addtraces!(plt,line_vlle)
 
                         idx_vlle = sum(p[1:idx_vlle[1],l].<p_vlle)
                         p[idx_vlle+1,l] = p_vlle
@@ -150,7 +154,7 @@ function _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=nothing,check_lle=false, che
                     end
                 end
 
-                # If the volumes of the two phases are similar or get reversed, we've reached a critical point
+                # If the Clapeyron.volumes of the two phases are similar or get reversed, we've reached a critical point
                 # We can find that critical point and break the while loop and go to the next branch
                 if bub[3]-bub[2]<1e-6
                     x0 = (x[k-1,l]+y[k-1,l])/2
@@ -205,7 +209,7 @@ function _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=nothing,check_lle=false, che
                 if abs(x_lle[k]-xx_lle[k])<1e-4
                     idxend = k
                     x0 = (x_lle[k,l]+xx_lle[k,l])/2
-                    vl0 = volume(model,p_lle[k],T,[x0,1-x0];phase=:l)
+                    vl0 = Clapeyron.volume(model,p_lle[k],T,[x0,1-x0];phase=:l)
                     v0_crit = [log10(vl0),[x0,1-x0]]
                     crit_point = UCST_mix(model,T;v0=v0_crit)
                     x_lle[k,l] = crit_point[3][1]
@@ -214,26 +218,29 @@ function _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=nothing,check_lle=false, che
                     break
                 end
             end
-            plot!(plt,x_lle[1:idxend],p_lle[1:idxend]./1e5,color=color,linestyle=style,line = (:path, 2),label = false)
-            plot!(plt,xx_lle[1:idxend],p_lle[1:idxend]./1e5,color=color,linestyle=style,line = (:path, 2),label = false)
+            line_lle1 = scatter(x=x_lle[1:idxend],y=p_lle[1:idxend]./1e5,mode="lines",line=attr(color=color, dash=style, width=2),name="LLE curve")
+            line_lle2 = scatter(x=xx_lle[1:idxend],y=p_lle[1:idxend]./1e5,mode="lines",line=attr(color=color, dash=style, width=2),name="LLE curve")
+            addtraces!(plt,line_lle1,line_lle2)
+
             lle_present = false
         end
 
         if idxend == Npoints
             X = vcat(x[:,l],reverse(y[:,l]))
             Y = vcat(p[:,l],reverse(p[:,l]))
-            plot!(plt,X,Y./1e5,color=color,linestyle=style,line = (:path, 2),label = false)
+            line_vle = scatter(x=X,y=Y./1e5,mode="lines",line=attr(color=color, dash=style, width=2),name="VLE curve")
+            addtraces!(plt,line_vle)
             break
         else
             X = vcat(x[1:idxend,l],reverse(y[1:idxend,l]))
             Y = vcat(p[1:idxend,l],reverse(p[1:idxend,l]))
-            plot!(plt,X,Y./1e5,color=color,linestyle=style,line = (:path, 2),label = false)
+            line_vle = scatter(x=X,y=Y./1e5,mode="lines",line=attr(color=color, dash=style, width=2),name="VLE curve")
+            addtraces!(plt,line_vle)
         end 
     end
-    xlabel!(plt,"molar composition of "*model.components[1],xguidefontsize=12)
-    ylabel!(plt,"Pressure / bar",yguidefontsize=12)
-    ylims!(plt,(pmin/1.1/1e5,pmax*1.1/1e5))
-    xlims!(plt,(0,1))
+    
+    update!(plt,layout=Layout(yaxis = attr(range = [pmin/1.1/1e5,pmax*1.1/1e5])))
+    update!(plt,layout=Layout(xaxis = attr(range = [0.,1.])))
     return plt
 end
     

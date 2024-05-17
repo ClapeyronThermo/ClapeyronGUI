@@ -1,7 +1,7 @@
 function pT_curve(model;Npoints=200,color="red", style="solid")
     # plt = plot(grid=:off,framestyle=:box,foreground_color_legend = nothing,legend_font=font(12))
-    layout = Layout(xaxis = attr(title = "Temperature  / K", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true),
-                    yaxis = attr(title = "Pressure / bar", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true),
+    layout = Layout(xaxis = attr(title = "Temperature  / K", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
+                    yaxis = attr(title = "Pressure / bar", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
                     showlegend=false, plot_bgcolor="white")
     plt = plot(scatter(),layout)
 
@@ -34,9 +34,12 @@ function _pT_curve!(plt,model,pmin,pmax,Tmin,Tmax;Npoints=200, color="red", styl
     T = LinRange(0.3*Tc,Tc,Npoints)
     sat = saturation_pressure.(model,T)
     psat = [sat[i][1] for i in 1:Npoints]
+
+    T = T[.!isnan.(psat)]
+    psat = psat[.!isnan.(psat)]
     
-    line_sat = scatter(x=T,y=psat./1e5,mode="lines",line=attr(color=color, dash=style, width=2),name="Saturation curve")
-    scatter_sat = scatter(x=[Tc],y=[Pc/1e5],mode="markers",marker=attr(color=color, size=5),name="Critical point")
+    line_sat = scatter(x=T,y=psat./1e5,mode="lines",line=attr(color=color, dash=style, width=3),name="Saturation curve")
+    scatter_sat = scatter(x=[Tc],y=[Pc/1e5],mode="markers",marker=attr(color=color, size=6),name="Critical point")
     addtraces!(plt,line_sat,scatter_sat)
 
     Tmin = minimum([minimum(T),Tmin])
@@ -45,7 +48,7 @@ function _pT_curve!(plt,model,pmin,pmax,Tmin,Tmax;Npoints=200, color="red", styl
     update!(plt,layout=Layout(xaxis = attr(range = [Tmin,Tmax])))
 
     pmin = minimum([minimum(psat)./1e5,pmin])
-    pmax = maximum([Pc*2.0./1e5,pmax])
+    pmax = maximum([Pc*1.1./1e5,pmax])
 
     update!(plt,layout=Layout(yaxis = attr(range = [pmin,pmax])))
 end

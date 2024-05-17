@@ -1,11 +1,11 @@
 # TO DOs for pxy_diagram
 # 1. Add check for VLLE when it does not arise from an azeotrope
 
-function pxy_diagram(model,T;iscrit=nothing,check_lle=false,lle_present=false,Npoints=200,color=:red,style=:solid)
+function pxy_diagram(model,T;iscrit=nothing,check_lle=false,lle_present=false,Npoints=1000,color=:red,style=:solid)
 
     # Basic settings for the plot
-    layout = Layout(xaxis = attr(title = "Molar composition of "*model.components[1], font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true),
-                    yaxis = attr(title = "Pressure / bar", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true),
+    layout = Layout(xaxis = attr(title = "Molar composition of "*model.components[1], font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
+                    yaxis = attr(title = "Pressure / bar", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
                     showlegend=false, plot_bgcolor="white")
     plt = plot(scatter(),layout)
     pmax = 0.
@@ -15,7 +15,7 @@ function pxy_diagram(model,T;iscrit=nothing,check_lle=false,lle_present=false,Np
     return plt
 end
 
-function pxy_diagram!(plt,model,T;iscrit=nothing,check_lle=false,lle_present=false,Npoints=200,color=:red,style=:solid)
+function pxy_diagram!(plt,model,T;iscrit=nothing,check_lle=false,lle_present=false,Npoints=1000,color=:red,style=:solid)
     p = plt.plot.layout[:yaxis][:range]
     pmax = p[2]*1e5
     pmin = p[1]*1e5
@@ -122,7 +122,7 @@ function _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=nothing,check_lle=false, che
                         xx_vlle = vlle[6][1]
                         y_vlle = vlle[7][1]
 
-                        line_vlle = scatter(x=sort([xx_vlle,x_vlle,y_vlle]),y=[p_vlle,p_vlle,p_vlle]./1e5,mode="lines",line=attr(color=color, dash=style, width=2),name="VLLE curve")
+                        line_vlle = scatter(x=sort([xx_vlle,x_vlle,y_vlle]),y=[p_vlle,p_vlle,p_vlle]./1e5,mode="lines",line=attr(color=color, dash=style, width=3),name="VLLE curve")
                         addtraces!(plt,line_vlle)
 
                         idx_vlle = sum(p[1:idx_vlle[1],l].<p_vlle)
@@ -218,8 +218,8 @@ function _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=nothing,check_lle=false, che
                     break
                 end
             end
-            line_lle1 = scatter(x=x_lle[1:idxend],y=p_lle[1:idxend]./1e5,mode="lines",line=attr(color=color, dash=style, width=2),name="LLE curve")
-            line_lle2 = scatter(x=xx_lle[1:idxend],y=p_lle[1:idxend]./1e5,mode="lines",line=attr(color=color, dash=style, width=2),name="LLE curve")
+            line_lle1 = scatter(x=x_lle[1:idxend],y=p_lle[1:idxend]./1e5,mode="lines",line=attr(color=color, dash=style, width=3),name="LLE curve")
+            line_lle2 = scatter(x=xx_lle[1:idxend],y=p_lle[1:idxend]./1e5,mode="lines",line=attr(color=color, dash=style, width=3),name="LLE curve")
             addtraces!(plt,line_lle1,line_lle2)
 
             lle_present = false
@@ -228,13 +228,13 @@ function _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=nothing,check_lle=false, che
         if idxend == Npoints
             X = vcat(x[:,l],reverse(y[:,l]))
             Y = vcat(p[:,l],reverse(p[:,l]))
-            line_vle = scatter(x=X,y=Y./1e5,mode="lines",line=attr(color=color, dash=style, width=2),name="VLE curve")
+            line_vle = scatter(x=X,y=Y./1e5,mode="lines",line=attr(color=color, dash=style, width=3),name="VLE curve")
             addtraces!(plt,line_vle)
             break
         else
             X = vcat(x[1:idxend,l],reverse(y[1:idxend,l]))
             Y = vcat(p[1:idxend,l],reverse(p[1:idxend,l]))
-            line_vle = scatter(x=X,y=Y./1e5,mode="lines",line=attr(color=color, dash=style, width=2),name="VLE curve")
+            line_vle = scatter(x=X,y=Y./1e5,mode="lines",line=attr(color=color, dash=style, width=3),name="VLE curve")
             addtraces!(plt,line_vle)
         end 
     end

@@ -1,5 +1,5 @@
 module PURERHOT
-using GenieFramework, StippleUI
+using GenieFramework
 using Clapeyron, Main.ThermoPlots
 import PlotlyBase, PlotlyKaleido
 
@@ -8,13 +8,15 @@ import PlotlyBase, PlotlyKaleido
     @in Select_eos = "PCSAFT"
     @in new_button = false
     @in add_button = false
-    model = PCSAFT(["water"])
-    plt = rhoT_envelope(model)
     @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","vdW","GERG2008","IAPWS95"]
     @out color = ["red","blue","green","purple","black"]
     @out i = 1
-    @out trace = plt.plot.data
-    @out layout = plt.plot.layout
+    @out trace = []
+    @out layout = PlotlyBase.Layout(xaxis = PlotlyBase.attr(title = "Density / (mol/dm³)", font_size=12, showgrid=false,            
+                                      ticks="inside",mirror=true,showline=true,linecolor="black"),
+                         yaxis = PlotlyBase.attr(title = "Temperature  / K", font_size=12, showgrid=false,       
+                                      ticks="inside",mirror=true,showline=true,linecolor="black"),
+                         showlegend=false, plot_bgcolor="white")
     @onbutton new_button begin
         i = 1
         eos = Symbol(Select_eos)

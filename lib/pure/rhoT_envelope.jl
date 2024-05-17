@@ -1,6 +1,6 @@
 function rhoT_envelope(model;Npoints=200,color="red", style="solid")
-    layout = Layout(xaxis = attr(title = "Density / (mol/dm³)", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true),
-    yaxis = attr(title = "Temperature / K", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true),
+    layout = Layout(xaxis = attr(title = "Density / (mol/dm³)", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true, linecolor="black"),
+    yaxis = attr(title = "Temperature / K", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true, linecolor="black"),
     showlegend=false, plot_bgcolor="white")
     plt = plot(scatter(),layout)
     vmin = Inf
@@ -37,8 +37,11 @@ function _rhoT_envelope!(plt,model,vmin,vmax,Tmin,Tmax; Npoints=200,color="red",
     T[1:Npoints] .= t
     T[Npoints+1:2*Npoints] .= reverse(t)
 
-    line_sat = scatter(x=1e-3 ./vsat,y=T,mode="lines",line=attr(color=color, dash=style, width=2),name="VLE curve")
-    scatter_sat = scatter(x=[1e-3/Vc],y=[Tc],mode="markers",marker=attr(color=color, size=5),name="Critical point")
+    T = T[.!isnan.(vsat)]
+    vsat = vsat[.!isnan.(vsat)]
+
+    line_sat = scatter(x=1e-3 ./vsat,y=T,mode="lines",line=attr(color=color, dash=style, width=3),name="VLE curve")
+    scatter_sat = scatter(x=[1e-3/Vc],y=[Tc],mode="markers",marker=attr(color=color, size=6),name="Critical point")
     addtraces!(plt,line_sat,scatter_sat)
     
     Tmin = maximum([T[1],Tmin])

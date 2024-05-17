@@ -1,6 +1,6 @@
 function rhop_envelope(model;Npoints=200,color="red", style="solid")
-    layout = Layout(xaxis = attr(title = "Density / (mol/dm³)", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true),
-    yaxis = attr(title = "Pressure / bar", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true),
+    layout = Layout(xaxis = attr(title = "Density / (mol/dm³)", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
+    yaxis = attr(title = "Pressure / bar", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
     showlegend=false, plot_bgcolor="white")
     plt = plot(scatter(),layout)
     pmin = Inf
@@ -41,12 +41,16 @@ function _rhop_envelope!(plt,model,vmin,vmax,pmin,pmax;Npoints=200,color="red", 
     psat[1:Npoints] .= [sat[i][1] for i in 1:Npoints]
     psat[Npoints+1:2*Npoints] .= [sat[i][1] for i in Npoints:-1:1]
 
-    line_sat = scatter(x=1e-3 ./vsat,y=psat./1e5,mode="lines",line=attr(color=color, dash=style, width=2),name="VLE curve")
-    scatter_sat = scatter(x=[1e-3/Vc],y=[Pc/1e5],mode="markers",marker=attr(color=color, size=5),name="Critical point")
+    T = T[.!isnan.(psat)]
+    vsat = vsat[.!isnan.(psat)]
+    psat = psat[.!isnan.(psat)]
+
+    line_sat = scatter(x=1e-3 ./vsat,y=psat./1e5,mode="lines",line=attr(color=color, dash=style, width=3),name="VLE curve")
+    scatter_sat = scatter(x=[1e-3/Vc],y=[Pc/1e5],mode="markers",marker=attr(color=color, size=6),name="Critical point")
     addtraces!(plt,line_sat,scatter_sat)
 
     Pmin = minimum([psat[1]./1e5,pmin])
-    Pmax = maximum([Pc*2.0./1e5,pmax])
+    Pmax = maximum([Pc*1.1./1e5,pmax])
 
     update!(plt,layout=Layout(yaxis = attr(range = [Pmin,Pmax])))
 

@@ -11,14 +11,15 @@ import PlotlyBase, PlotlyKaleido
     @in new_button = false
     @in add_button = false
     model = PCSAFT(["methanol","hexane"])
-    T = 298.15
-    plt = pxy_diagram(model, T)
-    # y log Scale
-    @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","vdW","GERG2008","IAPWS95"]
+    @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","vdW","GERG2008","Wilson","NRTL","UNIFAC","COSMOSAC"]
     @out color = ["red","blue","green","purple","black"]
     @out i = 1
-    @out trace = plt.plot.data
-    @out layout = plt.plot.layout
+    @out trace = []
+    @out layout = PlotlyBase.Layout(xaxis = PlotlyBase.attr(title = "Temperature  / K", font_size=12, showgrid=false,            
+                                      ticks="inside",mirror=true,showline=true,linecolor="black"),
+                         yaxis = PlotlyBase.attr(title = "Pressure / bar", font_size=12, showgrid=false,       
+                                      ticks="inside",mirror=true,showline=true,linecolor="black"),
+                         showlegend=false, plot_bgcolor="white")
     @onbutton new_button begin
         i = 1
         eos = Symbol(Select_eos)

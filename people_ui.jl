@@ -1,5 +1,5 @@
 include("layout.jl")
-
+page_layout( [
 row([cell(class="st-col col-3", [
         imageview(src="https://media.licdn.com/dms/image/D5603AQEGMAZzdPepcw/profile-displayphoto-shrink_400_400/0/1695345101523?e=1721260800&v=beta&t=5u4nGrMktND95FVkQ5JIRbRWWzdSh3f_jp8vsAhCI4I",
         height = "350px",
@@ -20,3 +20,4 @@ row([cell(class="st-col col-7", [
       width = "300px"),
         ])
        ])
+])

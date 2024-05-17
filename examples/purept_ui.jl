@@ -1,5 +1,6 @@
 include("layout.jl")
 
+page_layout( [
 row([cell(class="st-col col-3", [
         select(:Select_eos, options = :Select_eos_list, label = "Equation of State"),
         ]), 
@@ -16,3 +17,4 @@ row([cell(class="st-col col-3", [
 row([cell(class="st-col col-8", [
         plot(:trace, layout=:layout)
         ])])
+])

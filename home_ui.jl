@@ -1,5 +1,5 @@
 include("layout.jl")
-page_layout( [
+@eval page_layout( [
 row([
     cell(
         class="st-col", style="display:block;margin-left:auto;margin-right:auto;align-items:center", [imageview(

@@ -1,6 +1,6 @@
 include("layout.jl")
 
-page_layout( [
+@eval page_layout( [
 
 row([cell(class="st-col col-2", [
         select(:Select_eos, options = :Select_eos_list, label = "Equation of State")

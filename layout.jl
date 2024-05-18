@@ -1,4 +1,4 @@
-function page_layout( content)
+function page_layout(content)
 StippleUI.layout(
     [
         quasar(:header, style="background-color: #4063D8;", 
@@ -24,3 +24,5 @@ toolbar(class="text-primary", style="background-color: #4063D8; ", [
 )
 
 end
+
+export page_layout

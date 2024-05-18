@@ -12,12 +12,9 @@ row([cell(class="st-col col-2", [
         cell(class="st-col col-2", [
          textfield("Temperature (K):", :temp)
         ]),
-       cell(class="st-col col-1", [
-        btn("New", @click(:new_button), loading=:new_button)
-       ]),
-       cell(class="st-col col-1", [
-        btn("Add", @click(:add_button), loading=:add_button)
-       ])
+        cell(class="st-col col-1", [
+                btn("Plot",style="background-color: #4063D8; color: #ffffff", @click(:new_button), loading=:new_button)
+               ])
        ])
 row([cell(class="st-col col-8", [
         plot(:trace, layout=:layout)

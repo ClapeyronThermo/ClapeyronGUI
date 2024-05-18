@@ -7,10 +7,7 @@ row([cell(class="st-col col-3", [
         textfield("Species:", :species)
        ]),
        cell(class="st-col col-1", [
-        btn("New", @click(:new_button), loading=:new_button)
-       ]),
-       cell(class="st-col col-1", [
-        btn("Add", @click(:add_button), loading=:add_button)
+        btn("Plot",style="background-color: #4063D8; color: #ffffff", @click(:new_button), loading=:new_button)
        ])
        ])
 row([cell(class="st-col col-8", [

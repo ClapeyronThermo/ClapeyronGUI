@@ -4,7 +4,8 @@
 function pxy_diagram(model,T;iscrit=nothing,check_lle=false,lle_present=false,Npoints=1000,color=:red,style=:solid)
 
     # Basic settings for the plot
-    layout = Layout(xaxis = attr(title = "Molar composition of "*model.components[1], font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
+    layout = Layout(autosize=false,width=700,height=470,
+                    xaxis = attr(title = "Molar composition of "*model.components[1], font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
                     yaxis = attr(title = "Pressure / bar", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
                     showlegend=false, plot_bgcolor="white")
     plt = plot(scatter(),layout)
@@ -168,6 +169,9 @@ function _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=nothing,check_lle=false, che
                 end
                 k+=1
             catch
+                if check_vlle 
+                    stop_vlle = true
+                end
                 dx = dx/2
                 x[k,l] = x[k-1,l]+dx
                 v0[l][3] = v0[l][3]-dx

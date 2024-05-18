@@ -1,5 +1,5 @@
 include("layout.jl")
-page_layout( [
+@eval page_layout( [
 row([cell(class="st-col col-10", [
         h3("Topics")
         # list()

@@ -1,5 +1,6 @@
 function rhop_envelope(model;Npoints=200,color="red", style="solid")
-    layout = Layout(xaxis = attr(title = "Density / (mol/dm³)", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
+    layout = Layout(autosize=false,width=700,height=470,
+    xaxis = attr(title = "Density / (mol/dm³)", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
     yaxis = attr(title = "Pressure / bar", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
     showlegend=false, plot_bgcolor="white")
     plt = plot(scatter(),layout)

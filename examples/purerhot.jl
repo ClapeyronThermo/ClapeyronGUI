@@ -13,7 +13,8 @@ import PlotlyBase, PlotlyKaleido
     @out color = ["red","blue","green","purple","black"]
     @out i = 1
     @out trace = []
-    @out layout = PlotlyBase.Layout(xaxis = PlotlyBase.attr(title = "Density / (mol/dm³)", font_size=12, showgrid=false,            
+    @out layout = PlotlyBase.Layout(autosize=false,width=700,height=470,
+    xaxis = PlotlyBase.attr(title = "Density / (mol/dm³)", font_size=12, showgrid=false,            
                                       ticks="inside",mirror=true,showline=true,linecolor="black"),
                          yaxis = PlotlyBase.attr(title = "Temperature  / K", font_size=12, showgrid=false,       
                                       ticks="inside",mirror=true,showline=true,linecolor="black"),

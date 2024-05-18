@@ -1,6 +1,7 @@
 function pT_curve(model;Npoints=200,color="red", style="solid")
     # plt = plot(grid=:off,framestyle=:box,foreground_color_legend = nothing,legend_font=font(12))
-    layout = Layout(xaxis = attr(title = "Temperature  / K", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
+    layout = Layout(autosize=false,width=700,height=470,
+                    xaxis = attr(title = "Temperature  / K", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
                     yaxis = attr(title = "Pressure / bar", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
                     showlegend=false, plot_bgcolor="white")
     plt = plot(scatter(),layout)

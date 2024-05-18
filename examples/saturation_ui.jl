@@ -12,8 +12,8 @@ row([cell(class="st-col col-7", [
         select(:Select_eos, options = :Select_eos_list, label = "Equation of State"),
         textfield("Species:", :species),
         expansionitem(label="Options", [
-                toggle(label="Log x-axis",fieldname = :log_x),
-                toggle(label="Log y-axis",fieldname = :log_y),
+                toggle("Log x-axis",:log_x),
+                toggle("Log y-axis",:log_y),
                 checkbox("Pseudo-experimental data",:exp_data),
                 p("{{log_x}}"),
                 ]),

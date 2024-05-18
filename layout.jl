@@ -9,6 +9,7 @@ toolbar(class="text-primary", style="background-color: #4063D8; ", [
           a(btn("People",style = "color: #ffffff"),href="$(Router.link_to(:get_people))"),
           btn("Examples",style = "color: #ffffff", [StippleUI.menu(
             [item(clickable = true, a(href="$(Router.link_to(:get_purept))", style="text-decoration: none;; color: #000000;","Saturation curve")),
+            item(clickable = true, a(href="$(Router.link_to(:get_saturation))", style="text-decoration: none;; color: #000000;","Saturation properties")),
             item(clickable = true, a(href="$(Router.link_to(:get_purerhot))", style="text-decoration: none;; color: #000000;","VLE envelope")),
             item(clickable = true, a(href="$(Router.link_to(:get_mixpxy))", style="text-decoration: none;; color: #000000;","Binary <em>pxy</em> diagram")),
             ]

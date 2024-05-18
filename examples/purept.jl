@@ -1,6 +1,7 @@
 module PUREPT
 using GenieFramework
 using Clapeyron, Main.ThermoPlots
+using CoolProp
 import PlotlyBase, PlotlyJS, PlotlyKaleido
 @genietools
 @app begin
@@ -8,7 +9,7 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
     @in Select_eos = "PCSAFT"
     @in new_button = false
     @in add_button = false
-    @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","vdW","GERG2008","IAPWS95"]
+    @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","vdW","MultiFluid"]
     @out color = ["red","blue","green","purple","black"]
     @out i = 1
     @out trace = []

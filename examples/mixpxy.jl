@@ -1,6 +1,7 @@
 module MIXPXY
 using GenieFramework, StippleUI
 using Clapeyron, Main.ThermoPlots
+using CoolProp
 import PlotlyBase, PlotlyKaleido
 
 @app begin
@@ -11,7 +12,7 @@ import PlotlyBase, PlotlyKaleido
     @in new_button = false
     @in add_button = false
     model = PCSAFT(["methanol","hexane"])
-    @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","vdW","GERG2008","Wilson","NRTL","UNIFAC","COSMOSAC"]
+    @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","vdW","MultiFluid","Wilson","NRTL","UNIFAC","COSMOSAC"]
     @out color = ["red","blue","green","purple","black"]
     @out i = 1
     @out trace = []

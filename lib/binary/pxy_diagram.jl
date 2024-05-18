@@ -190,6 +190,7 @@ function _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=nothing,check_lle=false, che
                 Klle = tpd[1][1]./tpd[1][2]
                 lle_present=true
                 p_lle = LinRange(p_test,pmax,Npoints)
+                p_lle = [p_lle[k] for k in 1:Npoints]
             end
         end
 
@@ -212,9 +213,9 @@ function _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=nothing,check_lle=false, che
                     vl0 = Clapeyron.volume(model,p_lle[k],T,[x0,1-x0];phase=:l)
                     v0_crit = [log10(vl0),[x0,1-x0]]
                     crit_point = UCST_mix(model,T;v0=v0_crit)
-                    x_lle[k,l] = crit_point[3][1]
-                    xx_lle[k,l] = crit_point[3][1]
-                    p_lle[k,l] = crit_point[1]
+                    x_lle[k] = crit_point[3][1]
+                    xx_lle[k] = crit_point[3][1]
+                    p_lle[k] = crit_point[1]
                     break
                 end
             end

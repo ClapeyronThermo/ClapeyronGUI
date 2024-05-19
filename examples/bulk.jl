@@ -311,13 +311,13 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
             y_p_label = "Isobaric Expansivity / K⁻¹"
         end
 
-        if log_x_T
+        if log_x_p
             type_x = "log"
         else
             type_x = "linear"
         end
 
-        if log_y_T
+        if log_y_p
             type_y = "log"
         else
             type_y = "linear"
@@ -371,13 +371,13 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
             y_p_label = "Isobaric Expansivity / K⁻¹"
         end
 
-        if log_x_T
+        if log_x_p
             type_x = "log"
         else
             type_x = "linear"
         end
 
-        if log_y_T
+        if log_y_p
             type_y = "log"
         else
             type_y = "linear"

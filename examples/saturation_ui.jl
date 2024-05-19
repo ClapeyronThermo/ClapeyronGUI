@@ -12,9 +12,9 @@ row([cell(class="st-col col-7", [
         select(:Select_eos, options = :Select_eos_list, label = "Equation of State"),
         textfield("Species:", :species),
         expansionitem(label="Options", [
-                toggle("Log x-axis",:log_x),
-                toggle("Log y-axis",:log_y),
-                checkbox("Pseudo-experimental data",:exp_data),
+                toggle("Log x-axis",:log_x,color="blue-14"),
+                toggle("Log y-axis",:log_y,color="blue-14"),
+                checkbox("Pseudo-experimental data",:exp_data,color="blue-14"),
                 p("{{log_x}}"),
                 ]),
         btn("Plot",style="background-color: #4063D8; color: #ffffff", @click(:new_button), loading=:new_button)])])

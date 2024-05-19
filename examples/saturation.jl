@@ -12,7 +12,8 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
     @in x_axis = "Temperature"
     @in y_axis = "Pressure"
     @in log_x = false
-    @in log_y = false
+    @in log_y = true
+    @in exp_data = false
 
     @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","vdW","MultiFluid"]
     @out Select_property = ["Temperature","Pressure","Density","Volume",
@@ -24,9 +25,9 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
     @out trace = []
     @out layout = PlotlyBase.Layout(autosize=false,width=700,height=470,
     xaxis = PlotlyBase.attr(title = "Temperature  / K", font_size=12, showgrid=false,            
-                                      ticks="inside",mirror=true,showline=true,linecolor="black"),
+                                      ticks="inside",mirror=true,showline=true,linecolor="black",type="linear"),
                          yaxis = PlotlyBase.attr(title = "Pressure / bar", font_size=12, showgrid=false,       
-                                      ticks="inside",mirror=true,showline=true,linecolor="black"),
+                                      ticks="inside",mirror=true,showline=true,linecolor="black",type="log"),
                          showlegend=false, plot_bgcolor="white")
     @out T = []
     @out psat = []
@@ -129,8 +130,6 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
         β_l_sat = Clapeyron.VT_isobaric_expansivity.(model,vl_sat,T)
         β_v_sat = Clapeyron.VT_isobaric_expansivity.(model,vv_sat,T)
 
-
-
         if x_axis == "Temperature"
             x = vcat(T,reverse(T))
             x_crit = Tc
@@ -173,7 +172,7 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
             x_label = "Speed of Sound / (m/s)"
         elseif x_axis == "Joule-Thomson Coefficient"
             x = vcat(jt_l_sat,reverse(jt_v_sat)).*1e5
-            x_crit = jt_c
+            x_crit = jt_c.*1e5
             x_label = "Joule-Thomson Coefficient / (K/bar)"
         elseif x_axis == "Isentropic Compressibility"
             x = vcat(ks_l_sat,reverse(ks_v_sat))./1e5
@@ -247,13 +246,25 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
             y_label = "Isobaric Expansivity / K⁻¹"
         end
 
+        if log_x
+            type_x = "log"
+        else
+            type_x = "linear"
+        end
+
+        if log_y
+            type_y = "log"
+        else
+            type_y = "linear"
+        end
+
         trace = [PlotlyBase.scatter(x=x,y=y,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=3),name=""),
                  PlotlyBase.scatter(x=[x_crit],y=[y_crit],mode="markers",marker=PlotlyBase.attr(color="red", size=6))]
         layout = PlotlyBase.Layout(autosize=false,width=700,height=470,
         xaxis = PlotlyBase.attr(title = x_label, font_size=12, showgrid=false,            
-                                          ticks="inside",mirror=true,showline=true,linecolor="black"),
+                                          ticks="inside",mirror=true,showline=true,linecolor="black",type=type_x),
                              yaxis = PlotlyBase.attr(title = y_label, font_size=12, showgrid=false,       
-                                          ticks="inside",mirror=true,showline=true,linecolor="black"),
+                                          ticks="inside",mirror=true,showline=true,linecolor="black",type=type_y),
                              showlegend=false, plot_bgcolor="white")
     end
     @onchange x_axis begin
@@ -314,13 +325,25 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
             x_crit =β_c
             x_label = "Isobaric Expansivity / K⁻¹"
         end
+        if log_x
+            type_x = "log"
+        else
+            type_x = "linear"
+        end
+
+        if log_y
+            type_y = "log"
+        else
+            type_y = "linear"
+        end
+
         trace = [PlotlyBase.scatter(x=x,y=y,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=3),name=""),
                  PlotlyBase.scatter(x=[x_crit],y=[y_crit],mode="markers",marker=PlotlyBase.attr(color="red", size=6))]
         layout = PlotlyBase.Layout(autosize=false,width=700,height=470,
         xaxis = PlotlyBase.attr(title = x_label, font_size=12, showgrid=false,            
-                                          ticks="inside",mirror=true,showline=true,linecolor="black"),
+                                          ticks="inside",mirror=true,showline=true,linecolor="black",type=type_x),
                              yaxis = PlotlyBase.attr(title = y_label, font_size=12, showgrid=false,       
-                                          ticks="inside",mirror=true,showline=true,linecolor="black"),
+                                          ticks="inside",mirror=true,showline=true,linecolor="black",type=type_y),
                              showlegend=false, plot_bgcolor="white")
     end
     @onchange y_axis begin
@@ -381,30 +404,50 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
             y_crit = β_c
             y_label = "Isobaric Expansivity / K⁻¹"
         end
+
+        if log_x
+            type_x = "log"
+        else
+            type_x = "linear"
+        end
+
+        if log_y
+            type_y = "log"
+        else
+            type_y = "linear"
+        end
+
         trace = [PlotlyBase.scatter(x=x,y=y,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=3),name=""),
                  PlotlyBase.scatter(x=[x_crit],y=[y_crit],mode="markers",marker=PlotlyBase.attr(color="red", size=6))]
         layout = PlotlyBase.Layout(autosize=false,width=700,height=470,
         xaxis = PlotlyBase.attr(title = x_label, font_size=12, showgrid=false,            
-                                          ticks="inside",mirror=true,showline=true,linecolor="black"),
+                                          ticks="inside",mirror=true,showline=true,linecolor="black",type=type_x),
                              yaxis = PlotlyBase.attr(title = y_label, font_size=12, showgrid=false,       
-                                          ticks="inside",mirror=true,showline=true,linecolor="black"),
+                                          ticks="inside",mirror=true,showline=true,linecolor="black",type=type_y),
                              showlegend=false, plot_bgcolor="white")
     end
 
-    @onchange log_x begin
+    @onchange log_x, log_y begin
         if log_x
-            PlotlyBase.relayout!(layout, Dict(:xaxis => Dict(:type => "log")))
+            type_x = "log"
         else
-            PlotlyBase.relayout!(layout, Dict(:xaxis => Dict(:type => "linear")))
+            type_x = "linear"
         end
-    end
 
-    @onchange log_y begin
         if log_y
-            PlotlyBase.relayout!(layout, Dict(:yaxis => Dict(:type => "log")))
+            type_y = "log"
         else
-            PlotlyBase.relayout!(layout, Dict(:yaxis => Dict(:type => "linear")))
+            type_y = "linear"
         end
+
+        layout = PlotlyBase.Layout(autosize=false,width=700,height=470,
+        xaxis = PlotlyBase.attr(title = x_label, font_size=12, showgrid=false,            
+                                          ticks="inside",mirror=true,showline=true,linecolor="black",type=type_x),
+                             yaxis = PlotlyBase.attr(title = y_label, font_size=12, showgrid=false,       
+                                          ticks="inside",mirror=true,showline=true,linecolor="black",type=type_y),
+                             showlegend=false, plot_bgcolor="white")
+
+        trace = deepcopy(trace)
     end
 end
 end

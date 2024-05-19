@@ -12,7 +12,7 @@ row([p("")]),
 tabgroup(
         :tab_selected,
         inlinelabel = true,
-        class = "text-white shadow-2",
+        class = "text-white",
         style="background-color: #4063D8 ;activecolor: #4063C0;border-radius: 25px;",
         [
                 tab(name = "isobaric", icon = "compress", label = "Isobaric"),

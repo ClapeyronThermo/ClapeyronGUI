@@ -5,6 +5,7 @@ using CoolProp
 import PlotlyBase, PlotlyKaleido
 
 @app begin
+    @in tab_selected = "pxy"
     @in species1 = "methanol"
     @in species2 = "hexane"
     @in temp = 298.15

@@ -18,7 +18,7 @@ import PlotlyBase, PlotlyKaleido
     @out i = 1
     @out trace = []
     @out layout = PlotlyBase.Layout(autosize=false,width=700,height=470,
-    xaxis = PlotlyBase.attr(title = "Temperature  / K", font_size=12, showgrid=false,            
+    xaxis = PlotlyBase.attr(title = "methanol composition / (mol/mol)", font_size=12, showgrid=false,            
                                       ticks="inside",mirror=true,showline=true,linecolor="black"),
                          yaxis = PlotlyBase.attr(title = "Pressure / bar", font_size=12, showgrid=false,       
                                       ticks="inside",mirror=true,showline=true,linecolor="black"),

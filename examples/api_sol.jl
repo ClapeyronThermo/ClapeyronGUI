@@ -40,7 +40,7 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
 
     @out trace_p = []
     @out layout_p = PlotlyBase.Layout(autosize=false,width=700,height=470,
-    xaxis = PlotlyBase.attr(title = "Temperature  / K", font_size=12, showgrid=false,            
+    xaxis = PlotlyBase.attr(title = "water composition / (mol/mol)", font_size=12, showgrid=false,            
                                     ticks="inside",mirror=true,showline=true,linecolor="black"),
                         yaxis = PlotlyBase.attr(title = "API Solubility / (mol/mol)", font_size=12, showgrid=false,       
                                     ticks="inside",mirror=true,showline=true,linecolor="black"),

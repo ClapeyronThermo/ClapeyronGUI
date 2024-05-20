@@ -10,6 +10,7 @@ include("examples/saturation.jl")
 include("examples/excess.jl")
 include("examples/mixpxy.jl")
 include("examples/api_sol.jl")
+include("examples/uncertainty.jl")
 
 
 @page("/home", "home_ui.jl", model = HOME)
@@ -20,6 +21,7 @@ include("examples/api_sol.jl")
 @page("/excess_properties", "examples/excess_ui.jl", model = EXCESS)
 @page("/binary_phase_diagrams", "examples/mixpxy_ui.jl", model = MIXPXY)
 @page("/api_solubility", "examples/api_sol_ui.jl", model = API_SOL)
+@page("/uncertainty_propagation", "examples/uncertainty_ui.jl", model = UNCERTAINTY)
 route("/") do
   redirect(:get_home)
 end

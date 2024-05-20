@@ -14,6 +14,8 @@ import PlotlyBase, PlotlyKaleido
     @in Select_eos = "PCSAFT"
     @in new_p_button = false
     @in new_T_button = false
+    @in new_pT_button = false
+    @in log_y_pT = false
     model = PCSAFT(["methanol","hexane"])
     @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","vdW","MultiFluid","Wilson","NRTL","UNIFAC","COSMOSAC"]
     @out color = ["red","blue","green","purple","black"]
@@ -30,6 +32,13 @@ import PlotlyBase, PlotlyKaleido
     xaxis = PlotlyBase.attr(title = "methanol composition / (mol/mol)", font_size=12, showgrid=false,            
                                       ticks="inside",mirror=true,showline=true,linecolor="black"),
                          yaxis = PlotlyBase.attr(title = "Temperature / K", font_size=12, showgrid=false,       
+                                      ticks="inside",mirror=true,showline=true,linecolor="black"),
+                         showlegend=false, plot_bgcolor="white")
+    @out trace_pT = []
+    @out layout_pT = PlotlyBase.Layout(autosize=false,width=700,height=470,
+    xaxis = PlotlyBase.attr(title = "Temperature / K", font_size=12, showgrid=false,            
+                                      ticks="inside",mirror=true,showline=true,linecolor="black"),
+                         yaxis = PlotlyBase.attr(title = "Pressure / bar", font_size=12, showgrid=false,       
                                       ticks="inside",mirror=true,showline=true,linecolor="black"),
                          showlegend=false, plot_bgcolor="white")
     @onbutton new_T_button begin
@@ -50,6 +59,16 @@ import PlotlyBase, PlotlyKaleido
         plt = Txy_diagram(model, pre*1e5; color=color[mod(7,i)+1], check_lle=check_lle)
         trace_p = plt.plot.data
         layout_p = plt.plot.layout
+    end
+
+    @onbutton new_pT_button begin
+        i = 1
+        eos = Symbol(Select_eos)
+        model = @eval $eos([$species1,$species2])
+
+        plt = pT_projection(model; color=color[mod(7,i)+1])
+        trace_pT = plt.plot.data
+        layout_pT = plt.plot.layout
     end
 
 end

@@ -57,6 +57,19 @@ tabpanels(
                                 
                                 ])])
                                 ]),
+        tabpanel(name = "pT", [
+                row([cell(class="st-col col-7", [
+                        plot(:trace_pT, layout=:layout_pT),
+                        ]),
+                        cell(class="st-col col-1", [
+                        p(""),
+                        p(""),
+                        btn("Plot",style="background-color: #4063D8; color: #ffffff", @click(:new_pT_button), loading=:new_pT_button)
+                        ]),
+                        cell(class="st-col col-1", [
+                                
+                                ])])
+                                ])
 ],
 )
 

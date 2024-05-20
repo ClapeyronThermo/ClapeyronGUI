@@ -10,4 +10,5 @@ include("pure/rhop_envelope.jl")
 
 include("binary/pxy_diagram.jl")
 include("binary/Txy_diagram.jl")
+include("binary/pT_projection.jl")
 end

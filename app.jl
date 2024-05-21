@@ -11,6 +11,7 @@ include("examples/excess.jl")
 include("examples/mixpxy.jl")
 include("examples/ternary.jl")
 include("examples/api_sol.jl")
+include("examples/polymer.jl")
 include("examples/uncertainty.jl")
 
 
@@ -23,6 +24,7 @@ include("examples/uncertainty.jl")
 @page("/binary_phase_diagrams", "examples/mixpxy_ui.jl", model = MIXPXY)
 @page("/ternary_phase_diagrams", "examples/ternary_ui.jl", model = TERNARY_DIAGRAM)
 @page("/api_solubility", "examples/api_sol_ui.jl", model = API_SOL)
+@page("/polymer_properties", "examples/polymer_ui.jl", model = POLYMER)
 @page("/uncertainty_propagation", "examples/uncertainty_ui.jl", model = UNCERTAINTY)
 route("/") do
   redirect(:get_home)

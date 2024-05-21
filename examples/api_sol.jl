@@ -11,6 +11,7 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
     @in solvent = "water"
     @in solvent1 = "water"
     @in solvent2 = "ethanol"
+    @in temp = 298.15
 
 
     @in Select_eos = "PCSAFT"
@@ -101,11 +102,10 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
         x = LinRange(0.,1.,Npoints)
         
         p = 1e5
-        T = 298.15
         
         s = zeros(length(x))
         for i in 1:length(x)
-            s[i] = sle_solubility(model,p,T,[x[i],1-x[i],0.];solute=[api])[end]
+            s[i] = sle_solubility(model,p,temp,[x[i],1-x[i],0.];solute=[api])[end]
         end
 
         if log_y_p

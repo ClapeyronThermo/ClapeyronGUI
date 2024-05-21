@@ -12,6 +12,7 @@ toolbar(class="text-primary", style="background-color: #4063D8; ", [
             item(clickable = true, a(href="$(Router.link_to(:get_saturation_properties))", style="text-decoration: none;; color: #000000;","Saturation properties")),
             item(clickable = true, a(href="$(Router.link_to(:get_excess_properties))", style="text-decoration: none;; color: #000000;","Excess properties")),
             item(clickable = true, a(href="$(Router.link_to(:get_binary_phase_diagrams))", style="text-decoration: none;; color: #000000;","Binary phase diagrams")),
+            item(clickable = true, a(href="$(Router.link_to(:get_ternary_phase_diagrams))", style="text-decoration: none;; color: #000000;","Ternary phase diagrams")),
             item(clickable = true, a(href="$(Router.link_to(:get_api_solubility))", style="text-decoration: none;; color: #000000;","API solubility")),
             item(clickable = true, a(href="$(Router.link_to(:get_uncertainty_propagation))", style="text-decoration: none;; color: #000000;","Uncertainty propagation")),
             ]

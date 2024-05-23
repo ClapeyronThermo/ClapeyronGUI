@@ -92,7 +92,7 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
 
         y_label = "Excess " * y_label
 
-        trace = [PlotlyBase.scatter(x=x,y=y,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=3),name="")]
+        trace = [PlotlyBase.scatter(x=x,y=y,mode="lines",line=PlotlyBase.attr(color="green", dash="solid", width=3),name="")]
         layout = PlotlyBase.Layout(autosize=false,width=700,height=470,
         xaxis = PlotlyBase.attr(title = species1*" composition / (mol/mol)", font_size=12, showgrid=false,            
                                           ticks="inside",mirror=true,showline=true,linecolor="black"),
@@ -129,7 +129,7 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
 
         y_label = "Excess " * y_label
 
-        trace = [PlotlyBase.scatter(x=x,y=y,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=3),name="")]
+        trace = [PlotlyBase.scatter(x=x,y=y,mode="lines",line=PlotlyBase.attr(color="green", dash="solid", width=3),name="")]
         layout = PlotlyBase.Layout(autosize=false,width=700,height=470,
         xaxis = PlotlyBase.attr(title = species1*" composition / (mol/mol)", font_size=12, showgrid=false,            
                                           ticks="inside",mirror=true,showline=true,linecolor="black"),

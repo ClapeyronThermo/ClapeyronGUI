@@ -69,7 +69,7 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
             type_y = "linear"
         end
 
-        trace_T = [PlotlyBase.scatter(x=T,y=s,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=3),name="")]
+        trace_T = [PlotlyBase.scatter(x=T,y=s,mode="lines",line=PlotlyBase.attr(color="blue", dash="solid", width=3),name="")]
         layout_T = PlotlyBase.Layout(autosize=false,width=700,height=470,
         xaxis = PlotlyBase.attr(title = "Temperature / K", font_size=12, showgrid=false,            
                                           ticks="inside",mirror=true,showline=true,linecolor="black"),
@@ -114,7 +114,7 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
             type_y = "linear"
         end
 
-        trace_p = [PlotlyBase.scatter(x=x,y=s,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=3),name="")]
+        trace_p = [PlotlyBase.scatter(x=x,y=s,mode="lines",line=PlotlyBase.attr(color="blue", dash="solid", width=3),name="")]
         layout_p = PlotlyBase.Layout(autosize=false,width=700,height=470,
         xaxis = PlotlyBase.attr(title = solvent1*" composition / (mol/mol)", font_size=12, showgrid=false,            
                                           ticks="inside",mirror=true,showline=true,linecolor="black"),

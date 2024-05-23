@@ -323,7 +323,7 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
             type_y = "linear"
         end
 
-        trace_p = [PlotlyBase.scatter(x=x_p,y=y_p,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=3),name="")]
+        trace_p = [PlotlyBase.scatter(x=x_p,y=y_p,mode="lines",line=PlotlyBase.attr(color="blue", dash="solid", width=3),name="")]
         layout_p = PlotlyBase.Layout(autosize=false,width=700,height=470,
         xaxis = PlotlyBase.attr(title = "Temperature / K", font_size=12, showgrid=false,            
                                           ticks="inside",mirror=true,showline=true,linecolor="black",type=type_x),
@@ -383,7 +383,7 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
             type_y = "linear"
         end
 
-        trace_p = [PlotlyBase.scatter(x=x_p,y=y_p,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=3),name="")]
+        trace_p = [PlotlyBase.scatter(x=x_p,y=y_p,mode="lines",line=PlotlyBase.attr(color="blue", dash="solid", width=3),name="")]
         layout_p = PlotlyBase.Layout(autosize=false,width=700,height=470,
         xaxis = PlotlyBase.attr(title = "Temperature / K", font_size=12, showgrid=false,            
                                           ticks="inside",mirror=true,showline=true,linecolor="black",type=type_x),

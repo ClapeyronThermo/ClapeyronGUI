@@ -140,12 +140,12 @@ segment = Dict("PBD" => 0.0245,
                 end
             end
             if idxend == Npoints
-                trace_p = [PlotlyBase.scatter(x=w[:,1],y=T,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=3),name=""),
-                           PlotlyBase.scatter(x=w[:,2],y=T,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=3),name="")]
+                trace_p = [PlotlyBase.scatter(x=w[:,1],y=T,mode="lines",line=PlotlyBase.attr(color="green", dash="solid", width=3),name=""),
+                           PlotlyBase.scatter(x=w[:,2],y=T,mode="lines",line=PlotlyBase.attr(color="green", dash="solid", width=3),name="")]
             else
                 w = vcat(w[1:idxend,1],reverse(w[1:idxend,2]))
                 T = vcat(T[1:idxend],reverse(T[1:idxend]))
-                trace_p = [PlotlyBase.scatter(x=w,y=T,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=3),name="")]
+                trace_p = [PlotlyBase.scatter(x=w,y=T,mode="lines",line=PlotlyBase.attr(color="green", dash="solid", width=3),name="")]
             end
             layout_p = PlotlyBase.Layout(autosize=false,width=700,height=470,
             yaxis = PlotlyBase.attr(title = "Temperature / K", font_size=12, showgrid=false,            

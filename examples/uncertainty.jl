@@ -82,18 +82,18 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
         ρl_sat = [ρl_sat[i].val for i in 1:length(psat)]
         ρv_sat = [ρv_sat[i].val for i in 1:length(psat)]
 
-        trace = [PlotlyBase.scatter(x=T,y=(psat.-psat_err)./1e5,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=0),name=""),
+        trace = [PlotlyBase.scatter(x=T,y=(psat.-psat_err)./1e5,mode="lines",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name=""),
             PlotlyBase.scatter(x=T,y=psat./1e5,mode="lines",
-            fill="tonexty",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=3),name=""),
-            PlotlyBase.scatter(x=T,y=(psat.+psat_err)./1e5,mode="lines",fill="tonexty",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=0),name=""),
-                 PlotlyBase.scatter(x=[Tc],y=[Pc/1e5],mode="markers",marker=PlotlyBase.attr(color="red", size=6))]
-        trace_rho = [PlotlyBase.scatter(y=T,x=(ρl_sat.-ρl_sat_err).*1e-3,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=0),name=""),
-            PlotlyBase.scatter(y=T,x=ρl_sat.*1e-3,mode="lines",fill="tonextx",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=3),name=""),
-            PlotlyBase.scatter(y=T,x=(ρl_sat.+ρl_sat_err).*1e-3,mode="lines",fill="tonextx",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=0),name=""),
-            PlotlyBase.scatter(y=T,x=(ρv_sat.+ρv_sat_err).*1e-3,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=0),name=""),
-            PlotlyBase.scatter(y=T,x=ρv_sat.*1e-3,mode="lines",fill="tonextx",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=3),name=""),
-            PlotlyBase.scatter(y=T,x=(ρv_sat.-ρv_sat_err).*1e-3,mode="lines",fill="tonextx",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=0),name=""),
-            PlotlyBase.scatter(y=[Tc],x=[ρc*1e-3],mode="markers",marker=PlotlyBase.attr(color="red", size=6))]
+            fill="tonexty",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=3),name=""),
+            PlotlyBase.scatter(x=T,y=(psat.+psat_err)./1e5,mode="lines",fill="tonexty",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name=""),
+                 PlotlyBase.scatter(x=[Tc],y=[Pc/1e5],mode="markers",marker=PlotlyBase.attr(color="blue", size=6))]
+        trace_rho = [PlotlyBase.scatter(y=T,x=(ρl_sat.-ρl_sat_err).*1e-3,mode="lines",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name=""),
+            PlotlyBase.scatter(y=T,x=ρl_sat.*1e-3,mode="lines",fill="tonextx",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=3),name=""),
+            PlotlyBase.scatter(y=T,x=(ρl_sat.+ρl_sat_err).*1e-3,mode="lines",fill="tonextx",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name=""),
+            PlotlyBase.scatter(y=T,x=(ρv_sat.+ρv_sat_err).*1e-3,mode="lines",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name=""),
+            PlotlyBase.scatter(y=T,x=ρv_sat.*1e-3,mode="lines",fill="tonextx",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=3),name=""),
+            PlotlyBase.scatter(y=T,x=(ρv_sat.-ρv_sat_err).*1e-3,mode="lines",fill="tonextx",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name=""),
+            PlotlyBase.scatter(y=[Tc],x=[ρc*1e-3],mode="markers",marker=PlotlyBase.attr(color="blue", size=6))]
 
             pre = Slider_pre*1e5
             T = LinRange(250,500,200)
@@ -160,9 +160,9 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
                 y_label = "Isobaric Expansivity / (1/K)"
             end
 
-            trace_bulk = [PlotlyBase.scatter(x=T,y=(y.-y_err),mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=0),name=""),
-                PlotlyBase.scatter(x=T,y=y,mode="lines",fill="tonexty",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=3),name=""),
-                PlotlyBase.scatter(x=T,y=(y.+y_err),mode="lines",fill="tonexty",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=0),name="")]
+            trace_bulk = [PlotlyBase.scatter(x=T,y=(y.-y_err),mode="lines",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name=""),
+                PlotlyBase.scatter(x=T,y=y,mode="lines",fill="tonexty",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=3),name=""),
+                PlotlyBase.scatter(x=T,y=(y.+y_err),mode="lines",fill="tonexty",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name="")]
     end
 
     @onchange Slider_sigma, Slider_epsilon, Slider_segment begin
@@ -203,18 +203,18 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
         ρl_sat = [ρl_sat[i].val for i in 1:length(psat)]
         ρv_sat = [ρv_sat[i].val for i in 1:length(psat)]
 
-        trace = [PlotlyBase.scatter(x=T,y=(psat.-psat_err)./1e5,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=0),name=""),
-            PlotlyBase.scatter(x=T,y=psat./1e5,mode="lines",fill="tonexty",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=3),name=""),
-            PlotlyBase.scatter(x=T,y=(psat.+psat_err)./1e5,mode="lines",fill="tonexty",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=0),name=""),
-                 PlotlyBase.scatter(x=[Tc],y=[Pc/1e5],mode="markers",marker=PlotlyBase.attr(color="red", size=6))]
+        trace = [PlotlyBase.scatter(x=T,y=(psat.-psat_err)./1e5,mode="lines",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name=""),
+            PlotlyBase.scatter(x=T,y=psat./1e5,mode="lines",fill="tonexty",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=3),name=""),
+            PlotlyBase.scatter(x=T,y=(psat.+psat_err)./1e5,mode="lines",fill="tonexty",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name=""),
+                 PlotlyBase.scatter(x=[Tc],y=[Pc/1e5],mode="markers",marker=PlotlyBase.attr(color="blue", size=6))]
 
-        trace_rho = [PlotlyBase.scatter(y=T,x=(ρl_sat.-ρl_sat_err).*1e-3,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=0),name=""),
-            PlotlyBase.scatter(y=T,x=ρl_sat.*1e-3,mode="lines",fill="tonextx",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=3),name=""),
-            PlotlyBase.scatter(y=T,x=(ρl_sat.+ρl_sat_err).*1e-3,mode="lines",fill="tonextx",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=0),name=""),
-            PlotlyBase.scatter(y=T,x=(ρv_sat.+ρv_sat_err).*1e-3,mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=0),name=""),
-            PlotlyBase.scatter(y=T,x=ρv_sat.*1e-3,mode="lines",fill="tonextx",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=3),name=""),
-            PlotlyBase.scatter(y=T,x=(ρv_sat.-ρv_sat_err).*1e-3,mode="lines",fill="tonextx",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=0),name=""),
-            PlotlyBase.scatter(y=[Tc],x=[ρc*1e-3],mode="markers",marker=PlotlyBase.attr(color="red", size=6))]
+        trace_rho = [PlotlyBase.scatter(y=T,x=(ρl_sat.-ρl_sat_err).*1e-3,mode="lines",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name=""),
+            PlotlyBase.scatter(y=T,x=ρl_sat.*1e-3,mode="lines",fill="tonextx",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=3),name=""),
+            PlotlyBase.scatter(y=T,x=(ρl_sat.+ρl_sat_err).*1e-3,mode="lines",fill="tonextx",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name=""),
+            PlotlyBase.scatter(y=T,x=(ρv_sat.+ρv_sat_err).*1e-3,mode="lines",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name=""),
+            PlotlyBase.scatter(y=T,x=ρv_sat.*1e-3,mode="lines",fill="tonextx",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=3),name=""),
+            PlotlyBase.scatter(y=T,x=(ρv_sat.-ρv_sat_err).*1e-3,mode="lines",fill="tonextx",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name=""),
+            PlotlyBase.scatter(y=[Tc],x=[ρc*1e-3],mode="markers",marker=PlotlyBase.attr(color="blue", size=6))]
             
             pre = Slider_pre*1e5
             T = LinRange(250,500,200)
@@ -281,9 +281,9 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
                 y_label = "Isobaric Expansivity / (1/K)"
             end
 
-            trace_bulk = [PlotlyBase.scatter(x=T,y=(y.-y_err),mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=0),name=""),
-                PlotlyBase.scatter(x=T,y=y,mode="lines",fill="tonexty",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=3),name=""),
-                PlotlyBase.scatter(x=T,y=(y.+y_err),mode="lines",fill="tonexty",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=0),name="")]
+            trace_bulk = [PlotlyBase.scatter(x=T,y=(y.-y_err),mode="lines",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name=""),
+                PlotlyBase.scatter(x=T,y=y,mode="lines",fill="tonexty",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=3),name=""),
+                PlotlyBase.scatter(x=T,y=(y.+y_err),mode="lines",fill="tonexty",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name="")]
             layout_bulk = PlotlyBase.Layout(autosize=false,width=700,height=470,
             xaxis = PlotlyBase.attr(title = "Temperature  / K", font_size=12, showgrid=false,            
                                           ticks="inside",mirror=true,showline=true,linecolor="black",type="linear"),
@@ -369,9 +369,9 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
             y_label = "Isobaric Expansivity / (1/K)"
         end
 
-        trace_bulk = [PlotlyBase.scatter(x=T,y=(y.-y_err),mode="lines",line=PlotlyBase.attr(color="red", dash="solid", width=0),name=""),
-            PlotlyBase.scatter(x=T,y=y,mode="lines",fill="tonexty",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=3),name=""),
-            PlotlyBase.scatter(x=T,y=(y.+y_err),mode="lines",fill="tonexty",fillcolor="rgba(255,0,0,0.5)",line=PlotlyBase.attr(color="red", dash="solid", width=0),name="")]
+        trace_bulk = [PlotlyBase.scatter(x=T,y=(y.-y_err),mode="lines",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name=""),
+            PlotlyBase.scatter(x=T,y=y,mode="lines",fill="tonexty",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=3),name=""),
+            PlotlyBase.scatter(x=T,y=(y.+y_err),mode="lines",fill="tonexty",fillcolor="rgba(0,0,255,0.5)",line=PlotlyBase.attr(color="blue", dash="solid", width=0),name="")]
         layout_bulk = PlotlyBase.Layout(autosize=false,width=700,height=470,
         xaxis = PlotlyBase.attr(title = "Temperature  / K", font_size=12, showgrid=false,            
                                       ticks="inside",mirror=true,showline=true,linecolor="black",type="linear"),

@@ -28,7 +28,7 @@ row(style="margin:0px;padding:0px;margin-bottom:3cm",[p("")])
     separator(color = "primary")
     row(style="margin:0px;padding:0px",[p("")])
 
-row(style="margin:0px;padding:0px",[cell(class="st-col col-4"),
+row(style="margin:0px;padding:0px;margin-bottom:0.5%",[cell(class="st-col col-4"),
     cell(
         class="st-col col-2", style="display:block;margin-left:auto;margin-right:auto;align-items:center", [h2(style="text-align:center","Basics")]),
     cell(class="st-col col-4")])
@@ -48,8 +48,10 @@ row(style="margin:0px;padding:0px",[cell(class="st-col col-4",style="border: sol
                                     cell(class="st-col col-4",style="border: solid; border-color:#4063D8; border-width:2pt;border-radius: 25px;margin-bottom:0.5%",[h4(style="text-align:center;margin-bottom:7%","Ternary Phase Diagrams"),
                                     a(imageview(class="center",style="display: block; margin-left: auto;margin-right: auto;",src="ternary.png",width="400px"),href="$(Router.link_to(:get_ternary_phase_diagrams))"),
                                     p(style="text-align:center","Obtain ternary phase diagrams, for liquid–liquid and vapour–liquid equilibria, at a given temperature and pressure.")]),
-                                    cell(class="st-col col-4",style="border: solid; border-color:#4063D8; border-width:2pt;border-radius: 25px;margin-right:-0.5%;margin-left:0.5%;margin-bottom:0.5%",[h4(style="text-align:center","Parameter Estimation")])])
-row(style="margin:0px;padding:0px",[cell(class="st-col col-3"),
+                                    cell(class="st-col col-4",style="border: solid; border-color:#4063D8; border-width:2pt;border-radius: 25px;margin-right:-0.5%;margin-left:0.5%;margin-bottom:0.5%",[h4(style="text-align:center","Parameter Estimation"),
+                                    a(imageview(class="center",style="display: block; margin-left: auto;margin-right: auto;",src="fitting.png",width="400px"),href="$(Router.link_to(:get_parameter_estimation))"),
+                                    p(style="text-align:center","Estimate the PC-SAFT parameters for a pure-component using pseudo-experimental data.")])])
+row(style="margin:0px;padding:0px;margin-bottom:0.5%",[cell(class="st-col col-3"),
     cell(
         class="st-col col-4", style="display:block;margin-left:auto;margin-right:auto;align-items:center", [h2(style="text-align:center","Applications")]),
     cell(class="st-col col-3")])
@@ -61,7 +63,7 @@ row(style="margin:0px;padding:0px",[cell(class="st-col col-4",style="border: sol
                                p(style="text-align:center","Obtain polymer-gas solubilities and polymer blend cloud points using PC-SAFT.")]),
     cell(class="st-col col-4",style="border: solid; border-color:#4063D8; border-width:2pt;border-radius: 25px;margin-right:-0.5%;margin-left:0.5%;margin-bottom:0.5%",[h4(style="text-align:center","Electrolytes")])])
 
-row(style="margin:0px;padding:0px",[cell(class="st-col col-3"),
+row(style="margin:0px;padding:0px;margin-bottom:0.5%",[cell(class="st-col col-3"),
     cell(
         class="st-col col-4", style="display:block;margin-left:auto;margin-right:auto;align-items:center", [h2(style="text-align:center","Extensions")]),
     cell(class="st-col col-3")])

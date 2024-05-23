@@ -13,6 +13,7 @@ include("examples/ternary.jl")
 include("examples/api_sol.jl")
 include("examples/polymer.jl")
 include("examples/uncertainty.jl")
+include("examples/parameter_estimation.jl")
 
 
 @page("/home", "home_ui.jl", model = HOME)
@@ -26,6 +27,7 @@ include("examples/uncertainty.jl")
 @page("/api_solubility", "examples/api_sol_ui.jl", model = API_SOL)
 @page("/polymer_properties", "examples/polymer_ui.jl", model = POLYMER)
 @page("/uncertainty_propagation", "examples/uncertainty_ui.jl", model = UNCERTAINTY)
+@page("/parameter_estimation", "examples/parameter_estimation_ui.jl", model = PARAMETER_ESTIMATION)
 route("/") do
   redirect(:get_home)
 end

@@ -3,6 +3,7 @@ using GenieFramework
 using Clapeyron, Main.ThermoPlots
 using CoolProp
 import PlotlyBase, PlotlyJS, PlotlyKaleido
+import Main.@timeout
 @genietools
 
 function make_ax(title, tickangle)
@@ -46,7 +47,7 @@ end
         eos = Symbol(Select_eos)
         model = @eval $eos([$species1,$species2,$species3])
 
-        plt = ternary_diagram(model, pre*1e5, temp; Npoints=Npoints, color=:blue, style=:solid, check_three_phase=false)
+        plt = @timeout 200 ternary_diagram(model, pre*1e5, temp; Npoints=Npoints, color=:blue, style=:solid, check_three_phase=false)
         trace = plt.plot.data
         layout = plt.plot.layout
     end

@@ -3,6 +3,7 @@ using GenieFramework, StippleUI
 using Clapeyron, Main.ThermoPlots
 using CoolProp
 import PlotlyBase, PlotlyKaleido
+import Main.@timeout
 
 @app begin
     @in tab_selected = "pxy"
@@ -46,7 +47,7 @@ import PlotlyBase, PlotlyKaleido
         eos = Symbol(Select_eos)
         model = @eval $eos([$species1,$species2])
 
-        plt = pxy_diagram(model, temp; color="blue")
+        plt = @timeout 200 pxy_diagram(model, temp; color="blue")
         trace_T = plt.plot.data
         layout_T = plt.plot.layout
     end
@@ -56,7 +57,7 @@ import PlotlyBase, PlotlyKaleido
         eos = Symbol(Select_eos)
         model = @eval $eos([$species1,$species2])
 
-        plt = Txy_diagram(model, pre*1e5; color="red", check_lle=check_lle)
+        plt = @timeout 200 Txy_diagram(model, pre*1e5; color="red", check_lle=check_lle)
         trace_p = plt.plot.data
         layout_p = plt.plot.layout
     end
@@ -66,7 +67,8 @@ import PlotlyBase, PlotlyKaleido
         eos = Symbol(Select_eos)
         model = @eval $eos([$species1,$species2])
 
-        plt = pT_projection(model; color="purple")
+        plt = @timeout 200 pT_projection(model; color="purple")
+
         trace_pT = plt.plot.data
         layout_pT = plt.plot.layout
     end

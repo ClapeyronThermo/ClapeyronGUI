@@ -14,7 +14,7 @@ row([cell(class="st-col col-7", [
         [
                 tab(name = "pT", icon = "thermostat", label = "Saturation Pressure"),
                 tab(name = "rhoT", icon = "opacity", label = "Saturated Liquid Density"),
-                tab(name = "obj", icon = "local_drink", label = "Objective function")
+                tab(name = "obj", icon = "flag", label = "Objective function")
         ],
         )
 tabpanels(

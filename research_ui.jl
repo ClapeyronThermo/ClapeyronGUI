@@ -42,7 +42,9 @@ row([cell(class="st-col col-10", [
         p("[6] Walker, P.J., Zhao, T., Haslam, A.J., Jackson, G., 2022. ‘Ab initio development of generalized Lennard-Jones (Mie) force fields for predictions of thermodynamic properties in advanced molecular-based SAFT equations of state’, Journal of Chemical Physics, 156, pp. 154106."),
         p("[7] Walker, P.J., Liang, X., Kontogeorgis, G.M., 2022. ‘Importance of the Relative Static Permittivity in Electrolyte SAFT-VR Mie Equations of state’, Fluid Phase Equilibria, 551, pp. 113256"),
         p("[8] Inguva, P.K., Walker, P.J., Zhu, K., Yew, H-W., Haslam, A.J., Matar, O.K., 2021. ‘Continuum-scale modelling of polymer blends using the Cahn–Hilliard equation: Transport and thermodynamics’, Soft Matter, 17, pp. 5645-5665."),
-        p("[9] Walker, P. J., Haslam, A. J., 2020. ‘A new predictive group-contribution ideal-heat-capacity model, and its influence on second-derivative properties calculated using a free-energy equation of state’, Journal of Chemical and Engineering Data, 65(12), pp. 5809-5829.")
+        p("[9] Walker, P. J., Haslam, A. J., 2020. ‘A new predictive group-contribution ideal-heat-capacity model, and its influence on second-derivative properties calculated using a free-energy equation of state’, Journal of Chemical and Engineering Data, 65(12), pp. 5809-5829."),
+        h5("Education"),
+        p("[10] Paoli, L., Inguva, P.K., Haslam, A.J., Walker, P.J., 2024. ‘Introducing students to research codes: An introductory course to computational thermodynamics in Julia’, Education for Chemical Engineers, 48, pp. 1-14.")
         # list()
         ])    
        ])

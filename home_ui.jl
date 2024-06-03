@@ -71,5 +71,7 @@ row(style="margin:0px;padding:0px",[cell(class="st-col col-4",style="border: sol
 a(imageview(class="center",style="display: block; margin-left: auto;margin-right: auto;",src="uncertainty.png",width="400px"),href="$(Router.link_to(:get_uncertainty_propagation))"),
 p(style="text-align:center","Observe the effect of uncertainties within the PC-SAFT parameters for a pure-component.")]),
     cell(class="st-col col-4",style="border: solid; border-color:#4063D8; border-width:2pt;border-radius: 25px;margin-bottom:0.5%",[h4(style="text-align:center","Classical DFT")]),
-    cell(class="st-col col-4",style="border: solid; border-color:#4063D8; border-width:2pt;border-radius: 25px;margin-right:-0.5%;margin-left:0.5%;margin-bottom:0.5%",[h4(style="text-align:center","Darcy Flow Simulations")])])
+    cell(class="st-col col-4",style="border: solid; border-color:#4063D8; border-width:2pt;border-radius: 25px;margin-right:-0.5%;margin-left:0.5%;margin-bottom:0.5%",[h4(style="text-align:center","Transient Diffusion"),
+    a(imageview(class="center",style="display: block; margin-left: auto;margin-right: auto;",src="diffusion.png",width="400px"),href="$(Router.link_to(:get_diffusion))"),
+    p(style="text-align:center","Predict the gas-phase diffusion from a point source of fragrance molecules using UNIFAC.")])])
 ])

@@ -15,6 +15,7 @@ include("examples/polymer.jl")
 include("examples/uncertainty.jl")
 include("examples/parameter_estimation.jl")
 include("examples/diffusion.jl")
+include("examples/cdft.jl")
 
 
 @page("/home", "home_ui.jl", model = HOME)
@@ -30,6 +31,7 @@ include("examples/diffusion.jl")
 @page("/uncertainty_propagation", "examples/uncertainty_ui.jl", model = UNCERTAINTY)
 @page("/parameter_estimation", "examples/parameter_estimation_ui.jl", model = PARAMETER_ESTIMATION)
 @page("/diffusion", "examples/diffusion_ui.jl", model = DIFFUSION)
+@page("/cdft", "examples/cdft_ui.jl", model = CDFT)
 route("/") do
   redirect(:get_home)
 end

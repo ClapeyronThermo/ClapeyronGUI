@@ -2,12 +2,13 @@
 # 1. Add check for VLLE when it does not arise from an azeotrope
 # 2. Add critical point evaluators
 # 3. Add the case where both components are supercritical
+import PlotlyJS
 function Txy_diagram(model,p;iscrit=nothing,check_lle=false,lle_present=false,Npoints=200,color=:red,style=:solid)
-    layout = Layout(autosize=false,width=700,height=470,
-    xaxis = attr(title = "Molar composition of "*model.components[1], font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
-    yaxis = attr(title = "Temperature / K", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
+    layout = PlotlyJS.Layout(autosize=false,width=700,height=470,
+    xaxis = PlotlyJS.attr(title = "Molar composition of "*model.components[1], font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
+    yaxis = PlotlyJS.attr(title = "Temperature / K", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
     showlegend=false, plot_bgcolor="white")
-plt = plot(scatter(),layout)
+plt = PlotlyJS.plot(PlotlyJS.scatter(),layout)
 
     Tmax = 0.
     Tmin = Inf
@@ -122,8 +123,8 @@ function _Txy_diagram(plt,model,p,Tmax,Tmin;iscrit=nothing,check_lle=false, chec
                         xx_vlle = vlle[6][1]
                         y_vlle = vlle[7][1]
 
-                        line_vlle = scatter(x=sort([xx_vlle,x_vlle,y_vlle]),y=[T_vlle,T_vlle,T_vlle],mode="lines",line=attr(color=color, dash=style, width=3),name="VLLE curve")
-                        addtraces!(plt,line_vlle)
+                        line_vlle = PlotlyJS.scatter(x=sort([xx_vlle,x_vlle,y_vlle]),y=[T_vlle,T_vlle,T_vlle],mode="lines",line=PlotlyJS.attr(color=color, dash=style, width=3),name="VLLE curve")
+                        PlotlyJS.addtraces!(plt,line_vlle)
 
                         idx_vlle = sum(T[1:k,l].>T_vlle)
                         T[idx_vlle+1,l] = T_vlle
@@ -209,9 +210,9 @@ function _Txy_diagram(plt,model,p,Tmax,Tmin;iscrit=nothing,check_lle=false, chec
                         break
                     end
                 end
-                line_lle1 = scatter(x=x_lle[1:idxend],y=T_lle[1:idxend],mode="lines",line=attr(color=color, dash=style, width=3),name="LLE curve")
-            line_lle2 = scatter(x=xx_lle[1:idxend],y=T_lle[1:idxend],mode="lines",line=attr(color=color, dash=style, width=3),name="LLE curve")
-            addtraces!(plt,line_lle1,line_lle2)
+                line_lle1 = PlotlyJS.scatter(x=x_lle[1:idxend],y=T_lle[1:idxend],mode="lines",line=PlotlyJS.attr(color=color, dash=style, width=3),name="LLE curve")
+            line_lle2 = PlotlyJS.scatter(x=xx_lle[1:idxend],y=T_lle[1:idxend],mode="lines",line=PlotlyJS.attr(color=color, dash=style, width=3),name="LLE curve")
+            PlotlyJS.addtraces!(plt,line_lle1,line_lle2)
                 check_lle = false
                 Tmin = minimum(vcat(Tmin,T_lle))
             end
@@ -219,22 +220,22 @@ function _Txy_diagram(plt,model,p,Tmax,Tmin;iscrit=nothing,check_lle=false, chec
             if idxend == Npoints
                 X = vcat(x[:,l],reverse(y[:,l]))
                 Y = vcat(T[:,l],reverse(T[:,l]))
-                line_vle = scatter(x=X,y=Y,mode="lines",line=attr(color=color, dash=style, width=3),name="VLE curve")
-                addtraces!(plt,line_vle)
+                line_vle = PlotlyJS.scatter(x=X,y=Y,mode="lines",line=PlotlyJS.attr(color=color, dash=style, width=3),name="VLE curve")
+                PlotlyJS.addtraces!(plt,line_vle)
                 break
             else
                 X = vcat(x[1:idxend,l],reverse(y[1:idxend,l]))
                 Y = vcat(T[1:idxend,l],reverse(T[1:idxend,l]))
-                line_vle = scatter(x=X,y=Y,mode="lines",line=attr(color=color, dash=style, width=3),name="VLE curve")
-                addtraces!(plt,line_vle)
+                line_vle = PlotlyJS.scatter(x=X,y=Y,mode="lines",line=PlotlyJS.attr(color=color, dash=style, width=3),name="VLE curve")
+                PlotlyJS.addtraces!(plt,line_vle)
             end 
         end
 
-    update!(plt,layout=Layout(xaxis = attr(range = [0.,1.])))
+    PlotlyJS.update!(plt,layout=PlotlyJS.Layout(xaxis = PlotlyJS.attr(range = [0.,1.])))
     if lle_present
-        update!(plt,layout=Layout(yaxis = attr(range = [Tmin,Tmax*1.05])))
+        PlotlyJS.update!(plt,layout=PlotlyJS.Layout(yaxis = PlotlyJS.attr(range = [Tmin,Tmax*1.05])))
     else
-        update!(plt,layout=Layout(yaxis = attr(range = [Tmin/1.05,Tmax*1.05])))
+        PlotlyJS.update!(plt,layout=PlotlyJS.Layout(yaxis = PlotlyJS.attr(range = [Tmin/1.05,Tmax*1.05])))
     end
     return plt
 end

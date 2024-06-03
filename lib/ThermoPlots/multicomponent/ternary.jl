@@ -2,22 +2,22 @@ norm(z) = sqrt(sum(z.^2))
 
 
 function make_ax(title, tickangle)
-    attr(title=title, titlefont_size=20, tickangle=tickangle,
+    PlotlyJS.attr(title=title, titlefont_size=20, tickangle=tickangle,
         tickfont_size=15, tickcolor="rgb(0, 0, 0)", ticklen=5,gridcolor="rgba(0, 0, 0)",linecolor="rgba(0, 0, 0)",
         showline=true, showgrid=true)
 end
 
 function ternary_diagram(model,p,T; Npoints=200,color=:red,style=:solid,check_three_phase=false)
     components = model.components
-    layout = Layout(
-        ternary=attr(
+    layout = PlotlyJS.Layout(
+        ternary=PlotlyJS.attr(
             sum=1,
             aaxis=make_ax(components[1], 0),
             baxis=make_ax(components[2], 45),
             caxis=make_ax(components[3], -45),
             bgcolor="#ffffff",
         ))
-    plt = plot(scatterternary(),layout)
+    plt = plot(PlotlyJS.scatterternary(),layout)
     if typeof(model)<:Clapeyron.ActivityModel
         method = RRTPFlash
     else
@@ -124,31 +124,31 @@ function _ternary_diagram(plt,model,p,T,method=MichelsenTPFlash;Npoints=200,colo
             
             # println(idxend)
             if !is_closed
-                line1 = scatterternary( mode="lines",
+                line1 = PlotlyJS.scatterternary( mode="lines",
                                         a=x_eq[1:idxend,1],
                                         b=x_eq[1:idxend,2],
                                         c=x_eq[1:idxend,3],
-                                        line=attr(color=color, dash=style, width=3),
+                                        line=PlotlyJS.attr(color=color, dash=style, width=3),
                                         name="")
-                line2 = scatterternary( mode="lines",
+                line2 = PlotlyJS.scatterternary( mode="lines",
                                         a=x_eq[1:idxend,4],
                                         b=x_eq[1:idxend,5],
                                         c=x_eq[1:idxend,6],
-                                        line=attr(color=color, dash=style, width=3),
+                                        line=PlotlyJS.attr(color=color, dash=style, width=3),
                                         name="")  
-                addtraces!(plt,line1,line2)  
+                PlotlyJS.addtraces!(plt,line1,line2)  
                 break
             else
                 X = vcat(x_eq[1:idxend,1],reverse(x_eq[1:idxend,4]))
                 Y = vcat(x_eq[1:idxend,2],reverse(x_eq[1:idxend,5]))
                 Z = vcat(x_eq[1:idxend,3],reverse(x_eq[1:idxend,6]))
-                line = scatterternary( mode="lines",
+                line = PlotlyJS.scatterternary( mode="lines",
                                         a=X,
                                         b=Y,
                                         c=Z,
-                                        line=attr(color=color, dash=style, width=3),
+                                        line=PlotlyJS.attr(color=color, dash=style, width=3),
                                         name="")
-                addtraces!(plt,line)
+                PlotlyJS.addtraces!(plt,line)
             end
         end
     end

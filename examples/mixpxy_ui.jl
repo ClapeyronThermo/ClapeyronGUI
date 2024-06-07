@@ -49,7 +49,6 @@ tabpanels(
                         textfield("Pressure (bar):", :pre),
                         expansionitem(label="Options", [
                 checkbox("Check LLE",:check_lle),
-                p("{{log_x}}"),
                 ]),
                         btn("Plot",style="background-color: #4063D8; color: #ffffff", @click(:new_p_button), loading=:new_p_button)
                         ]),

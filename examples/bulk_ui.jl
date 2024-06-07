@@ -38,8 +38,6 @@ row([cell(class="st-col col-7", [
         expansionitem(label="Options", [
                 toggle("Log x-axis",:log_x_T),
                 toggle("Log y-axis",:log_y_T),
-                checkbox("Pseudo-experimental data",:exp_data),
-                p("{{log_x}}"),
                 ]),
         btn("Plot",style="background-color: #4063D8; color: #ffffff", @click(:new_T_button), loading=:new_T_button)])])
 row([cell(class="st-ol col-1"),
@@ -59,7 +57,6 @@ row([cell(class="st-ol col-1"),
                                 expansionitem(label="Options", [
                                         toggle("Log x-axis",:log_x_p),
                                         toggle("Log y-axis",:log_y_p),
-                                        checkbox("Pseudo-experimental data",:exp_data),
                                         ]),
                                 btn("Plot",style="background-color: #4063D8; color: #ffffff", @click(:new_p_button), loading=:new_p_button)])])
                         row([cell(class="st-ol col-1"),

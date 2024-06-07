@@ -92,7 +92,7 @@ end
         solarray_k = Array(solution_k)
 
         for i in 1:size(solarray_k, 3)
-            trace = [PlotlyBase.scatter(x = domain[1:end-2], y = solarray_k[1:end-1, j, i]*C_T, mode = "lines", line = PlotlyBase.attr(width = 2), name = species[j]) for j in 1:4]
+            trace = [PlotlyBase.scatter(x = domain[1:end-2], y = solarray_k[1:end-1, j, i]*C_T, mode = "lines", line = PlotlyBase.attr(width = 3), name = species[j]) for j in 1:4]
             layout = PlotlyBase.Layout(autosize=false,width=700,height=470,
             xaxis = PlotlyBase.attr(title = "Distance  / m", font_size=12, showgrid=false,            
                           ticks="inside",mirror=true,showline=true,linecolor="black", range=[0, L]),

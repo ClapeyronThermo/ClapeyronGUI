@@ -27,6 +27,7 @@ UnPack = "3a884ed6-31ef-47d7-9d2a-63182c4928ed"
 BandedMatrices = "1"
 CSV = "0.10"
 ChemicalIdentifiers = "0.1"
+Clapeyron = "0.6"
 CoolProp = "0.2"
 DataFrames = "1.6"
 ForwardDiff = "0.10"
@@ -45,5 +46,4 @@ StippleUI = "0.23.3"
 UnPack = "1"
 
 [sources]
-Clapeyron = {url = "https://github.com/ClapeyronThermo/Clapeyron.jl"}
 GCIdentifier = {url = "https://github.com/ClapeyronThermo/GCIdentifier.jl"}

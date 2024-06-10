@@ -23,6 +23,7 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
     @in log_x_p = false
     @in log_y_p = false
 
+    @out model = PCSAFT(["water"])
     @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","vdW","MultiFluid"]
     @out Select_property = ["Density","Volume",
                             "Internal Energy","Enthalpy","Entropy",
@@ -86,7 +87,24 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
     @onbutton new_T_button begin
         Npoints = 200
         eos = Symbol(Select_eos)
-        model = @eval $eos([$species])
+        try
+            model = @eval $eos([$species])
+        catch
+            notify(__model__, "Species $species is not available in $Select_eos.", :warning)
+        end
+
+        if !(typeof(pre_start)<:Number) || !(typeof(pre_end)<:Number)
+            notify(__model__, "Pressure range must be a number.", :warning)
+        elseif pre_start < 0 || pre_end < 0
+            notify(__model__, "Pressure range must be positive.", :warning)
+        end
+
+        if !(typeof(temp) <: Number)
+            notify(__model__, "Temperature must be a number.", :warning)
+        elseif temp < 0
+            notify(__model__, "Temperature must be positive.", :warning)
+        end
+
         if log_x_T
             p = LinRange(log(pre_start),log(pre_end),Npoints)
             p = exp.(p)

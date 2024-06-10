@@ -14,8 +14,6 @@ row([cell(class="st-col col-7", [
         expansionitem(label="Options", [
                 toggle("Log x-axis",:log_x,color="blue-14"),
                 toggle("Log y-axis",:log_y,color="blue-14"),
-                checkbox("Pseudo-experimental data",:exp_data,color="blue-14"),
-                p("{{log_x}}"),
                 ]),
         btn("Plot",style="background-color: #4063D8; color: #ffffff", @click(:new_button), loading=:new_button)])])
 row([cell(class="st-ol col-1"),

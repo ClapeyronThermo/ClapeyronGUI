@@ -1,34 +1,34 @@
 include("layout.jl")
 @eval page_layout( [
-row([cell(class="st-col col-10", [
-        h3("Topics")
-        # list()
-        ])    
-       ])
-row([cell(class="st-col col-3", [
-        select(:Select_eos, options = :Select_eos_list, label = "Equation of State"),
-        ]),
-      cell(class="st-col col-7", [
-        h4("Predictive Thermodynamics"),
-        ])
-       ])
+# row([cell(class="st-col col-10", [
+#         h3("Topics")
+#         # list()
+#         ])    
+#        ])
+# row([cell(class="st-col col-3", [
+#         select(:Select_eos, options = :Select_eos_list, label = "Equation of State"),
+#         ]),
+#       cell(class="st-col col-7", [
+#         h4("Predictive Thermodynamics"),
+#         ])
+#        ])
 
-row([cell(class="st-col col-7", [
-        h4("Computer-Aided Molecular Design"),
-        p("Text"),
-        ]),
-    cell(class="st-col col-3", [
-        select(:Select_eos, options = :Select_eos_list, label = "Equation of State"),
-        ])
-       ])
+# row([cell(class="st-col col-7", [
+#         h4("Computer-Aided Molecular Design"),
+#         p("Text"),
+#         ]),
+#     cell(class="st-col col-3", [
+#         select(:Select_eos, options = :Select_eos_list, label = "Equation of State"),
+#         ])
+#        ])
 
-row([cell(class="st-col col-3", [
-        select(:Select_eos, options = :Select_eos_list, label = "Equation of State"),
-        ]),
-        cell(class="st-col col-7", [
-            h4("Seamless Multi-scale Modelling"),
-            ])    
-       ])
+# row([cell(class="st-col col-3", [
+#         select(:Select_eos, options = :Select_eos_list, label = "Equation of State"),
+#         ]),
+#         cell(class="st-col col-7", [
+#             h4("Seamless Multi-scale Modelling"),
+#             ])    
+#        ])
 
 row([cell(class="st-col col-10", [
         h3("Publication List"),

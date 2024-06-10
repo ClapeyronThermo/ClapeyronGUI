@@ -4,8 +4,8 @@ StippleUI.layout(
         quasar(:header, style="background-color: #4063D8;", 
 toolbar(class="text-primary", style="background-color: #4063D8; ", [
           a(btn( flat=true, dense=true, icon="img:https://raw.githubusercontent.com/ClapeyronThermo/Clapeyron.jl/master/docs/src/assets/logo.svg"), href="$(Router.link_to(:get_home))"),
-          toolbartitle("Clapeyron",style = "color: #ffffff; font-family:ubuntu; font-size: 1.7em; font-weight: bold;"),
-          a(btn("Research",style = "color: #ffffff"),href="$(Router.link_to(:get_research))"),
+          toolbartitle("Clapeyron",style = "color: #ffffff; font-size: 1.7em; font-weight: bold;"),
+          a(btn("Publications",style = "color: #ffffff"),href="$(Router.link_to(:get_research))"),
           a(btn("People",style = "color: #ffffff"),href="$(Router.link_to(:get_people))"),
           btn("Examples",style = "color: #ffffff", [StippleUI.menu(
             [item(clickable = true, a(href="$(Router.link_to(:get_bulk_properties))", style="text-decoration: none;; color: #000000;","Bulk properties")),
@@ -16,6 +16,7 @@ toolbar(class="text-primary", style="background-color: #4063D8; ", [
             item(clickable = true, a(href="$(Router.link_to(:get_parameter_estimation))", style="text-decoration: none;; color: #000000;","Parameter estimation")),
             item(clickable = true, a(href="$(Router.link_to(:get_api_solubility))", style="text-decoration: none;; color: #000000;","API solubility")),
             item(clickable = true, a(href="$(Router.link_to(:get_polymer_properties))", style="text-decoration: none;; color: #000000;","Polymer properties")),
+            item(clickable = true, a(href="$(Router.link_to(:get_electrolyte_properties))", style="text-decoration: none;; color: #000000;","Electrolytes")),
             item(clickable = true, a(href="$(Router.link_to(:get_uncertainty_propagation))", style="text-decoration: none;; color: #000000;","Uncertainty propagation")),
             item(clickable = true, a(href="$(Router.link_to(:get_cdft))", style="text-decoration: none;; color: #000000;","Classical DFT")),
             item(clickable = true, a(href="$(Router.link_to(:get_diffusion))", style="text-decoration: none;; color: #000000;","Transient Diffusion"))

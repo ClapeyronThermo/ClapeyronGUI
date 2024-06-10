@@ -61,7 +61,9 @@ row(style="margin:0px;padding:0px",[cell(class="st-col col-4",style="border: sol
     cell(class="st-col col-4",style="border: solid; border-color:#4063D8; border-width:2pt;border-radius: 25px;margin-bottom:0.5%",[h4(style="text-align:center","Polymers"),
                                a(imageview(class="center",style="display: block; margin-left: auto;margin-right: auto;",src="polymer.png",width="400px"),href="$(Router.link_to(:get_polymer_properties))"),
                                p(style="text-align:center","Obtain polymer-gas solubilities and polymer blend cloud points using PC-SAFT.")]),
-    cell(class="st-col col-4",style="border: solid; border-color:#4063D8; border-width:2pt;border-radius: 25px;margin-right:-0.5%;margin-left:0.5%;margin-bottom:0.5%",[h4(style="text-align:center","Electrolytes")])])
+    cell(class="st-col col-4",style="border: solid; border-color:#4063D8; border-width:2pt;border-radius: 25px;margin-right:-0.5%;margin-left:0.5%;margin-bottom:0.5%",[h4(style="text-align:center","Electrolytes"),
+    a(imageview(class="center",style="display: block; margin-left: auto;margin-right: auto;",src="electrolytes.png",width="400px"),href="$(Router.link_to(:get_electrolyte_properties))"),
+                               p(style="text-align:center","Obtain electrolyte mean ionic activity coefficients, osmotic coefficients and saturation pressure.")])])
 
 row(style="margin:0px;padding:0px;margin-bottom:0.5%",[cell(class="st-col col-3"),
     cell(

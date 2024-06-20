@@ -49,8 +49,16 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
 
     @onbutton data_button begin
         Npoints = 20
-        model = MultiFluid([species])
+
+        try
+            model = MultiFluid([species])
+        catch 
+            notify(__model__, "Experimental data for $species is not available.", :warning)
+            throw(TypeError("Experimental data for $species is not available."))
+        end
         
+        model = MultiFluid([species])
+
         (Tc,Pc,vc) = crit_pure(model)
         T_exp = LinRange(0.7*Tc,Tc*0.95,Npoints)
 
@@ -76,7 +84,16 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
 
     @onbutton fit_button begin
         Npoints = 200
+
+        try 
+            model = PCSAFT([species])
+        catch
+            notify(__model__, "Species $species is not available.", :warning)
+            throw(TypeError("Species $species is not available."))
+        end
+
         model = PCSAFT([species])
+        
         toestimate = [
                     Dict(
                         :param => :epsilon,

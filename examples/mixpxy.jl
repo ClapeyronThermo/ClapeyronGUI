@@ -45,7 +45,20 @@ import Main.@timeout
     @onbutton new_T_button begin
         i = 1
         eos = Symbol(Select_eos)
+
+        try
+            model = @eval $eos([$species1,$species2])
+        catch
+            notify(__model__, "Species $species1 or $species2 are not available in $Select_eos.", :warning)
+            throw(TypeError("Species $species1 or $species2 are not available in $Select_eos."))
+        end
+
         model = @eval $eos([$species1,$species2])
+
+        if temp < 0
+            notify(__model__, "Temperature must be positive.", :warning)
+            throw(TypeError("Temperature must be positive."))
+        end
 
         plt = @timeout 200 pxy_diagram(model, temp; color="blue")
         trace_T = plt.plot.data
@@ -55,7 +68,20 @@ import Main.@timeout
     @onbutton new_p_button begin
         i = 1
         eos = Symbol(Select_eos)
+
+        try
+            model = @eval $eos([$species1,$species2])
+        catch
+            notify(__model__, "Species $species1 or $species2 are not available in $Select_eos.", :warning)
+            throw(TypeError("Species $species1 or $species2 are not available in $Select_eos."))
+        end
+
         model = @eval $eos([$species1,$species2])
+
+        if pre < 0
+            notify(__model__, "Pressure must be positive.", :warning)
+            throw(TypeError("Pressure must be positive."))
+        end
 
         plt = @timeout 200 Txy_diagram(model, pre*1e5; color="red", check_lle=check_lle)
         trace_p = plt.plot.data
@@ -65,6 +91,14 @@ import Main.@timeout
     @onbutton new_pT_button begin
         i = 1
         eos = Symbol(Select_eos)
+
+        try
+            model = @eval $eos([$species1,$species2])
+        catch
+            notify(__model__, "Species $species1 or $species2 are not available in $Select_eos.", :warning)
+            throw(TypeError("Species $species1 or $species2 are not available in $Select_eos."))
+        end
+
         model = @eval $eos([$species1,$species2])
 
         plt = @timeout 200 pT_projection(model; color="purple")

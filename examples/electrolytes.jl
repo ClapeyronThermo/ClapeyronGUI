@@ -43,9 +43,27 @@ import Main.@timeout
         N = 200
         eos = Symbol(Select_eos)
         if Select_eos == "ePCSAFT"
+            try
+                model = @eval $eos(["water08"],[$cation,$anion])
+            catch
+                notify(__model__, "Species $cation or $anion are not available in $Select_eos.", :warning)
+                throw(TypeError("Species $cation or $anion are not available in $Select_eos."))
+            end
             model = @eval $eos(["water08"],[$cation,$anion])
         else
+            try
+                model = @eval $eos(["water"],[$cation,$anion])
+            catch
+                notify(__model__, "Species $cation or $anion are not available in $Select_eos.", :warning)
+                throw(TypeError("Species $cation or $anion are not available in $Select_eos."))
+            end
+
             model = @eval $eos(["water"],[$cation,$anion])
+        end
+
+        if temp < 0
+            notify(__model__, "Temperature must be greater than 273.15 K.", :warning)
+            throw(TypeError("Temperature must be greater than 273.15 K."))
         end
 
 
@@ -72,9 +90,27 @@ import Main.@timeout
         N = 200
         eos = Symbol(Select_eos)
         if Select_eos == "ePCSAFT"
+            try
+                model = @eval $eos(["water08"],[$cation,$anion])
+            catch
+                notify(__model__, "Species $cation or $anion are not available in $Select_eos.", :warning)
+                throw(TypeError("Species $cation or $anion are not available in $Select_eos."))
+            end
             model = @eval $eos(["water08"],[$cation,$anion])
         else
+            try
+                model = @eval $eos(["water"],[$cation,$anion])
+            catch
+                notify(__model__, "Species $cation or $anion are not available in $Select_eos.", :warning)
+                throw(TypeError("Species $cation or $anion are not available in $Select_eos."))
+            end
+            
             model = @eval $eos(["water"],[$cation,$anion])
+        end
+
+        if temp < 0
+            notify(__model__, "Temperature must be greater than 273.15 K.", :warning)
+            throw(TypeError("Temperature must be greater than 273.15 K."))
         end
 
         charges = model.charge
@@ -100,9 +136,27 @@ import Main.@timeout
         N = 200
         eos = Symbol(Select_eos)
         if Select_eos == "ePCSAFT"
+            try
+                model = @eval $eos(["water08"],[$cation,$anion])
+            catch
+                notify(__model__, "Species $cation or $anion are not available in $Select_eos.", :warning)
+                throw(TypeError("Species $cation or $anion are not available in $Select_eos."))
+            end
             model = @eval $eos(["water08"],[$cation,$anion])
         else
+            try
+                model = @eval $eos(["water"],[$cation,$anion])
+            catch
+                notify(__model__, "Species $cation or $anion are not available in $Select_eos.", :warning)
+                throw(TypeError("Species $cation or $anion are not available in $Select_eos."))
+            end
+            
             model = @eval $eos(["water"],[$cation,$anion])
+        end
+
+        if temp < 0
+            notify(__model__, "Temperature must be greater than 273.15 K.", :warning)
+            throw(TypeError("Temperature must be greater than 273.15 K."))
         end
 
         charges = model.charge

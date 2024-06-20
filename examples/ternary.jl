@@ -45,7 +45,25 @@ end
     @onbutton new_button begin
         Npoints = 200
         eos = Symbol(Select_eos)
+
+        try
+            model = @eval $eos([$species1,$species2,$species3])
+        catch
+            notify(__model__, "Species $species1 or $species2 or $species3 are not available in $Select_eos.", :warning)
+            throw(TypeError("Species $species1 or $species2 or $species3 are not available in $Select_eos."))
+        end
+
         model = @eval $eos([$species1,$species2,$species3])
+        
+        if temp < 0
+            notify(__model__, "Temperature must be positive.", :warning)
+            throw(TypeError("Temperature must be positive."))
+        end
+
+        if pre < 0
+            notify(__model__, "Pressure must be positive.", :warning)
+            throw(TypeError("Pressure must be positive."))
+        end
 
         plt = @timeout 200 ternary_diagram(model, pre*1e5, temp; Npoints=Npoints, color=:blue, style=:solid, check_three_phase=false)
         trace = plt.plot.data

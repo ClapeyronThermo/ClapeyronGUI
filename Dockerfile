@@ -15,4 +15,4 @@ ENV GENIE_HOST "0.0.0.0"
 ENV PORT "8000"
 ENV WSPORT "8000"
 ENV EARLYBIND "true"
-ENTRYPOINT ["julia", "--project", "-e", "using GenieFramework; Genie.loadapp(); up(async=false);"]
+ENTRYPOINT ["julia","-p 8", "--project", "-e", "using GenieFramework; Genie.loadapp(); up(async=false); Genie.Generator.write_secrets_file()"]

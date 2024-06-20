@@ -23,7 +23,6 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
     @in log_x_p = false
     @in log_y_p = false
 
-    @out model = PCSAFT(["water"])
     @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","vdW","MultiFluid"]
     @out Select_property = ["Density","Volume",
                             "Internal Energy","Enthalpy","Entropy",
@@ -91,18 +90,25 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
             model = @eval $eos([$species])
         catch
             notify(__model__, "Species $species is not available in $Select_eos.", :warning)
+            throw(TypeError("Species $species is not available in $Select_eos."))
         end
+
+        model = @eval $eos([$species])
 
         if !(typeof(pre_start)<:Number) || !(typeof(pre_end)<:Number)
             notify(__model__, "Pressure range must be a number.", :warning)
+            throw(TypeError("Pressure range must be a number."))
         elseif pre_start < 0 || pre_end < 0
             notify(__model__, "Pressure range must be positive.", :warning)
+            throw(TypeError("Pressure range must be positive."))
         end
 
         if !(typeof(temp) <: Number)
             notify(__model__, "Temperature must be a number.", :warning)
+            throw(TypeError("Temperature must be a number."))
         elseif temp < 0
             notify(__model__, "Temperature must be positive.", :warning)
+            throw(TypeError("Temperature must be positive."))
         end
 
         if log_x_T
@@ -272,7 +278,30 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
     @onbutton new_p_button begin
         Npoints = 200
         eos = Symbol(Select_eos)
+        try
+            model = @eval $eos([$species])
+        catch 
+            notify(__model__, "Species $species is not available in $Select_eos.", :warning)
+            throw(TypeError("Species $species is not available in $Select_eos."))
+        end
+
         model = @eval $eos([$species])
+
+        if !(typeof(temp_start)<:Number) || !(typeof(temp_end)<:Number)
+            notify(__model__, "Temperature range must be a number.", :warning)
+            throw(TypeError("Temperature range must be a number."))
+        elseif temp_start < 0 || temp_end < 0
+            notify(__model__, "Temperature range must be positive.", :warning)
+            throw(TypeError("Temperature range must be positive."))
+        end
+
+        if !(typeof(pre) <: Number)
+            notify(__model__, "Pressure must be a number.", :warning)
+            throw(TypeError("Pressure must be a number."))
+        elseif pre < 0
+            notify(__model__, "Pressure must be positive.", :warning)
+            throw(TypeError("Pressure must be positive."))
+        end
 
         T = LinRange(temp_start,temp_end,Npoints)
         p = pre*1e5

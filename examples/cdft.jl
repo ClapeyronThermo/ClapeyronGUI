@@ -37,7 +37,21 @@ import Main.@timeout
 
     @onbutton converge_sft_button begin
         eos = Symbol(Select_eos)
+
+        try 
+            model = @eval $eos([$species])
+        catch
+            notify(__model__, "Species $species is not available in $Select_eos.", :warning)
+            throw(TypeError("Species $species is not available in $Select_eos."))
+        end
+
         model = @eval $eos([$species])
+
+        if temp < 0
+            notify(__model__, "Temperature must be positive.", :warning)
+            throw(TypeError("Temperature must be positive."))
+        end
+
         Mw = model.params.Mw.values
 
         L = length_scale(model)
@@ -64,7 +78,16 @@ import Main.@timeout
 
     @onbutton converge_ift_button begin
         eos = Symbol(Select_eos)
+
+        try
+            model = @eval $eos(["water","hexane",$surfactant]; assoc_options=AssocOptions(combining=:elliott))
+        catch
+            notify(__model__, "Species $surfactant are not available in $Select_eos.", :warning)
+            throw(TypeError("Species $surfactant are not available in $Select_eos."))
+        end
+
         model = @eval $eos(["water","hexane",$surfactant]; assoc_options=AssocOptions(combining=:elliott))
+
         Mw = model.params.Mw.values
 
         L = length_scale(model)

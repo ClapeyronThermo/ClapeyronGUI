@@ -81,6 +81,14 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
     @onbutton new_button begin
         Npoints = 200
         eos = Symbol(Select_eos)
+
+        try
+            model = @eval $eos([$species])
+        catch
+            notify(__model__, "Species $species is not available in $Select_eos.", :warning)
+            throw(TypeError("Species $species is not available in $Select_eos."))
+        end
+
         model = @eval $eos([$species])
 
         (Tc,Pc,vc) = crit_pure(model)

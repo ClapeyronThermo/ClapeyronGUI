@@ -46,7 +46,16 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
 
     @onbutton new_button begin
         Npoints = 200
+
+        try
+            model = PCSAFT([species])
+        catch
+            notify(__model__, "Species $species is not available in PCSAFT.", :warning)
+            throw(TypeError("Species $species is not available in PCSAFT."))
+        end
+
         model = PCSAFT([species])
+
         model_err = PCSAFT([species];userlocations = (;
                             Mw = [model.params.Mw[1]±0],
                             epsilon = [model.params.epsilon[1]±Slider_epsilon],
@@ -167,7 +176,15 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
 
     @onchange Slider_sigma, Slider_epsilon, Slider_segment begin
         Npoints = 200
+        try
+            model = PCSAFT([species])
+        catch
+            notify(__model__, "Species $species is not available in PCSAFT.", :warning)
+            throw(TypeError("Species $species is not available in PCSAFT."))
+        end
+
         model = PCSAFT([species])
+
         model_err = PCSAFT([species];userlocations = (;
                             Mw = [model.params.Mw[1]±0],
                             epsilon = [model.params.epsilon[1]±Slider_epsilon],
@@ -293,7 +310,20 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
     end
 
     @onchange Slider_pre, Selected_property begin
+        try
+            model = PCSAFT([species])
+        catch
+            notify(__model__, "Species $species is not available in PCSAFT.", :warning)
+            throw(TypeError("Species $species is not available in PCSAFT."))
+        end
+
+        if pre < 0
+            notify(__model__, "Pressure must be positive.", :warning)
+            throw(TypeError("Pressure must be positive."))
+        end
+
         model = PCSAFT([species])
+
         model_err = PCSAFT([species];userlocations = (;
                         Mw = [model.params.Mw[1]±0],
                         epsilon = [model.params.epsilon[1]±Slider_epsilon],

@@ -36,10 +36,10 @@ segment = Dict("PBD" => 0.0245,
 
     @in polymer = "PBD"
     @in Mw_poly = 1000
-    @in polymer1 = "PMMA"
+    @in polymer1 = "PBD"
     @in Mw_poly1 = 2000
     @in polymer2 = "PS"
-    @in Mw_poly2 = 1000
+    @in Mw_poly2 = 4000
     @in gas = "carbon dioxide"
 
     @in temp = 298.15

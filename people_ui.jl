@@ -22,7 +22,7 @@ row([cell(class="st-col col-3", [
 
 row([cell(class="st-col col-7", [
         h4("Andrés Riedemann"),
-        p("<font size=3> Andrés is one of the principle developers of Clapeyron.jl. He is currently a PhD student in the University of Concèpcion, having also obtained his masters and bachelors there. While he is still early in his academic career, his interest lie in the development of new thermodynamic models and methods, while also improving the accessibility of these tools through open-source initiatives.  </font>  "),
+        p("<font size=3> Andrés is one of the principal developers of Clapeyron.jl. He is currently a PhD student in the University of Concèpcion, having also obtained his masters and bachelors there. While he is still early in his academic career, his interest lie in the development of new thermodynamic models and methods, while also improving the accessibility of these tools through open-source initiatives.  </font>  "),
         row([a(btn(icon="img:https://raw.githubusercontent.com/simple-icons/simple-icons/6a137bea1fd652227fe9c52d2aafdabe68d2f4af/icons/github.svg"),href="https://github.com/longemen3000"),
         a(btn(icon="img:https://raw.githubusercontent.com/simple-icons/simple-icons/6a137bea1fd652227fe9c52d2aafdabe68d2f4af/icons/linkedin.svg"),href="https://www.linkedin.com/in/andrés-riedemann-rubilar-b89241a1/")])
         ]),

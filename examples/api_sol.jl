@@ -52,9 +52,25 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
     @onbutton new_T_button begin
         Npoints = 200
         eos = Symbol(Select_eos)
+        try
+            model = @eval CompositeModel([$solvent,$api];fluid=$eos,solid=SolidHfus)
+        catch
+            notify(__model__, "Species $solvent or $api are not available in $Select_eos.", :warning)
+            throw(TypeError("Species $solvent or $api are not available in $Select_eos."))
+        end
+
         model = @eval CompositeModel([$solvent,$api];fluid=$eos,solid=SolidHfus)
-        
+
         p = 1e5
+
+        if !(typeof(temp_start)<:Number) || !(typeof(temp_end)<:Number)
+            notify(__model__, "Temperature range must be a number.", :warning)
+            throw(TypeError("Temperature range must be a number."))
+        elseif temp_start < 0 || temp_end < 0
+            notify(__model__, "Temperature range must be positive.", :warning)
+            throw(TypeError("Temperature range must be positive."))
+        end
+
         T = LinRange(temp_start,temp_end,Npoints)
 
         s = zeros(length(T))
@@ -98,10 +114,27 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
     @onbutton new_p_button begin
         Npoints = 200
         eos = Symbol(Select_eos)
+
+        try
+            model = @eval CompositeModel([$solvent1,$solvent2,$api];fluid=$eos,solid=SolidHfus)
+        catch
+            notify(__model__, "Species $solvent1, $solvent2 or $api are not available in $Select_eos.", :warning)
+            throw(TypeError("Species $solvent1, $solvent2 or $api are not available in $Select_eos."))
+        end
+
         model = @eval CompositeModel([$solvent1,$solvent2,$api];fluid=$eos,solid=SolidHfus)
+        
         x = LinRange(0.,1.,Npoints)
         
         p = 1e5
+
+        if !(typeof(temp)<:Number)
+            notify(__model__, "Temperature must be a number.", :warning)
+            throw(TypeError("Temperature range must be a number."))
+        elseif temp < 0
+            notify(__model__, "Temperature must be positive.", :warning)
+            throw(TypeError("Temperature range must be positive."))
+        end
         
         s = zeros(length(x))
         for i in 1:length(x)

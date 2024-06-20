@@ -41,7 +41,24 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
     @onbutton new_button begin
         Npoints = 200
         eos = Symbol(Select_eos)
+        try
+            model = @eval $eos([$species1,$species2])
+        catch
+            notify(__model__, "Species $species1 or $species2 are not available in $Select_eos.", :warning)
+            throw(TypeError("Species $species1 or $species2 are not available in $Select_eos."))
+        end
+
         model = @eval $eos([$species1,$species2])
+
+        if temp < 0
+            notify(__model__, "Temperature must be positive.", :warning)
+            throw(TypeError("Temperature must be positive."))
+        end
+
+        if pre < 0
+            notify(__model__, "Pressure must be positive.", :warning)
+            throw(TypeError("Pressure must be positive."))
+        end
 
         x = LinRange(0,1,Npoints)
         v_E = zeros(Npoints)

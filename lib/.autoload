@@ -34,3 +34,11 @@ cDFT/cDFT.jl
 -cDFT/utils/profiles.jl
 -cDFT/utils/sum.jl
 ThermoPlots/ThermoPlots.jl
+-ThermoPlots/pure/pT_curve.jl
+-ThermoPlots/pure/rhop_envelope.jl
+-ThermoPlots/pure/rhoT_envelope.jl
+-ThermoPlots/multicomponent/ternary.jl
+-ThermoPlots/bulk/bulk.jl
+-ThermoPlots/binary/pT_projection.jl
+-ThermoPlots/binary/pxy_diagram.jl
+-ThermoPlots/binary/Txy_diagram.jl

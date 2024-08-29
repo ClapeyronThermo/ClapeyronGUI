@@ -1,7 +1,7 @@
 module CDFT
 using GenieFramework
 using Clapeyron, Main.cDFT
-import PlotlyBase, PlotlyJS, PlotlyKaleido
+import PlotlyBase, PlotlyKaleido
 import Main.@timeout
 @genietools
 

@@ -1,6 +1,6 @@
 module ThermoPlots
 
-using Clapeyron, PlotlyJS
+using Clapeyron, PlotlyBase
 
 # include("bulk/bulk.jl")
 

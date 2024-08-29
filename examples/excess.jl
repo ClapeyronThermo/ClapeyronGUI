@@ -2,7 +2,7 @@ module EXCESS
 using GenieFramework
 using Clapeyron, Main.ThermoPlots
 using CoolProp
-import PlotlyBase, PlotlyJS, PlotlyKaleido
+import PlotlyBase, PlotlyKaleido
 @genietools
 @app begin
     @in species1 = "water"

@@ -15,11 +15,11 @@ function rhop_envelope(model;Npoints=200,color="red", style="solid")
 end
 
 function rhop_envelope!(plt,model;Npoints=200,color="red", style="solid")
-    p = plt.plot.layout[:yaxis][:range]
+    p = plt.layout[:yaxis][:range]
     pmax = p[2]
     pmin = p[1]
 
-    v = plt.plot.layout[:xaxis][:range]
+    v = plt.layout[:xaxis][:range]
     vmax = 1e-3/v[1]
     vmin = 1e-3/v[2]
 

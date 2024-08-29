@@ -2,7 +2,7 @@ module PARAMETER_ESTIMATION
 using GenieFramework
 using Clapeyron, Main.ThermoPlots
 using Metaheuristics, DataFrames, CSV
-import PlotlyBase, PlotlyJS, PlotlyKaleido
+import PlotlyBase, PlotlyKaleido
 @genietools
 
 @app begin

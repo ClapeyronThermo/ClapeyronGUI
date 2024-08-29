@@ -2,7 +2,7 @@ module UNCERTAINTY
 using GenieFramework
 using Clapeyron, Main.ThermoPlots
 using Measurements, ForwardDiffOverMeasurements
-import PlotlyBase, PlotlyJS, PlotlyKaleido
+import PlotlyBase, PlotlyKaleido
 @genietools
 @app begin
     @in tab_selected = "pT"
@@ -317,6 +317,8 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
             throw(TypeError("Species $species is not available in PCSAFT."))
         end
 
+        pre = Slider_pre*1e5
+
         if pre < 0
             notify(__model__, "Pressure must be positive.", :warning)
             throw(TypeError("Pressure must be positive."))
@@ -335,7 +337,6 @@ import PlotlyBase, PlotlyJS, PlotlyKaleido
                         epsilon_assoc = nothing,
                         bondvol = nothing))
 
-        pre = Slider_pre*1e5
         T = LinRange(250,500,200)
         if Selected_property == "Volume"
             y = volume.(model_err,pre,T)

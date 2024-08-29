@@ -4,7 +4,7 @@ using Clapeyron, Main.ThermoPlots
 using SparseArrays, BandedMatrices, GCIdentifier, ChemicalIdentifiers
 using ForwardDiff, OrdinaryDiffEq, UnPack, LinearAlgebra
 
-import PlotlyBase, PlotlyJS, PlotlyKaleido
+import PlotlyBase, PlotlyKaleido
 import Main.@timeout
 @genietools
 

@@ -14,10 +14,10 @@ function rhoT_envelope(model;Npoints=200,color="red", style="solid")
 end
 
 function rhoT_envelope!(plt,model;Npoints=200,color="red", style="solid")
-    v = plt.plot.layout[:xaxis][:range]
+    v = plt.layout[:xaxis][:range]
     vmax = 1e-3/v[1]
     vmin = 1e-3/v[2]
-    T = plt.plot.layout[:yaxis][:range]
+    T = plt.layout[:yaxis][:range]
     Tmax = T[2]
     Tmin = T[1]
 

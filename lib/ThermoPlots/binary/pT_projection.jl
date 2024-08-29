@@ -1,11 +1,11 @@
-import PlotlyJS
+import PlotlyBase
 
 function pT_projection(model;Npoints=200,color=:red,style=:solid,check_ucep=false)
-    layout = PlotlyJS.Layout(autosize=false,width=700,height=470,
-                    xaxis = PlotlyJS.attr(title = "Temperature / K", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
-                    yaxis = PlotlyJS.attr(title = "Pressure / bar", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
+    layout = PlotlyBase.Layout(autosize=false,width=700,height=470,
+                    xaxis = PlotlyBase.attr(title = "Temperature / K", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
+                    yaxis = PlotlyBase.attr(title = "Pressure / bar", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
                     showlegend=false, plot_bgcolor="white")
-    plt = PlotlyJS.plot(PlotlyJS.scatter(),layout)
+    plt = PlotlyBase.Plot(PlotlyBase.scatter(),layout)
     Tmin = Inf
     Tmax = 0.
 
@@ -17,11 +17,11 @@ function pT_projection(model;Npoints=200,color=:red,style=:solid,check_ucep=fals
 end
 
 function pT_projection!(plt,model;Npoints=200,color=:red,style=:solid,check_ucep=false)
-    p = plt.plot.layout[:yaxis][:range]
+    p = plt.layout[:yaxis][:range]
     pmax = p[2]
     pmin = p[1]
 
-    T = plt.plot.layout[:xaxis][:range]
+    T = plt.layout[:xaxis][:range]
     Tmax = T[2]
     Tmin = T[1]
 
@@ -45,9 +45,9 @@ function _pT_projection!(plt,model,Tmin,Tmax,pmin,pmax;Npoints=200,check_ucep=fa
             # remove nans
             T = T[.!isnan.(psat)]
             psat = psat[.!isnan.(psat)]
-            line_sat = PlotlyJS.scatter(x=T,y=psat./1e5,mode="lines",line=PlotlyJS.attr(color=color, dash=style, width=3),name="Saturation curve")
-            scatter_sat = PlotlyJS.scatter(x=[tc[j]],y=[pc[j]/1e5],mode="markers",marker=PlotlyJS.attr(color=color, size=6),name="Critical point")
-            PlotlyJS.addtraces!(plt,line_sat,scatter_sat)
+            line_sat = PlotlyBase.scatter(x=T,y=psat./1e5,mode="lines",line=PlotlyBase.attr(color=color, dash=style, width=3),name="Saturation curve")
+            scatter_sat = PlotlyBase.scatter(x=[tc[j]],y=[pc[j]/1e5],mode="markers",marker=PlotlyBase.attr(color=color, size=6),name="Critical point")
+            PlotlyBase.addtraces!(plt,line_sat,scatter_sat)
 
             Tmin = min(Tmin,minimum(T))
             Tmax = max(Tmax,maximum(T))
@@ -106,8 +106,8 @@ function _pT_projection!(plt,model,Tmin,Tmax,pmin,pmax;Npoints=200,check_ucep=fa
         
 
         for i in 1:npaths
-            line_crit = PlotlyJS.scatter(x=Tc[Tc[:,i].>0,i],y=Pc[Tc[:,i].>0,i]./1e5,mode="lines",line=PlotlyJS.attr(color=color, dash="dash", width=2),name="Critical curve")
-            PlotlyJS.addtraces!(plt,line_crit)
+            line_crit = PlotlyBase.scatter(x=Tc[Tc[:,i].>0,i],y=Pc[Tc[:,i].>0,i]./1e5,mode="lines",line=PlotlyBase.attr(color=color, dash="dash", width=2),name="Critical curve")
+            PlotlyBase.addtraces!(plt,line_crit)
         end
 
         # if present_ucep && check_ucep
@@ -133,8 +133,8 @@ function _pT_projection!(plt,model,Tmin,Tmax,pmin,pmax;Npoints=200,check_ucep=fa
         #     end
         # end
 
-        PlotlyJS.update!(plt,layout=PlotlyJS.Layout(xaxis = PlotlyJS.attr(range = [Tmin/1.1,Tmax*1.1])))
-        PlotlyJS.update!(plt,layout=PlotlyJS.Layout(yaxis = PlotlyJS.attr(range = [pmin/1.1/1e5,pmax*1.1/1e5])))
+        PlotlyBase.update!(plt,layout=PlotlyBase.Layout(xaxis = PlotlyBase.attr(range = [Tmin/1.1,Tmax*1.1])))
+        PlotlyBase.update!(plt,layout=PlotlyBase.Layout(yaxis = PlotlyBase.attr(range = [pmin/1.1/1e5,pmax*1.1/1e5])))
     return plt
 end
     

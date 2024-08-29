@@ -1,16 +1,16 @@
 # TO DOs for pxy_diagram
 # 1. Add check for VLLE when it does not arise from an azeotrope
-import PlotlyJS
+import PlotlyBase
 
 
 function pxy_diagram(model,T;iscrit=nothing,check_lle=false,lle_present=false,Npoints=1000,color=:red,style=:solid)
 
     # Basic settings for the plot
-    layout = PlotlyJS.Layout(autosize=false,width=700,height=470,
-                    xaxis = PlotlyJS.attr(title = "Molar composition of "*model.components[1], font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
-                    yaxis = PlotlyJS.attr(title = "Pressure / bar", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
+    layout = PlotlyBase.Layout(autosize=false,width=700,height=470,
+                    xaxis = PlotlyBase.attr(title = "Molar composition of "*model.components[1], font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
+                    yaxis = PlotlyBase.attr(title = "Pressure / bar", font_size=12, showgrid=false, ticks="inside",mirror=true,showline=true,linecolor="black"),
                     showlegend=false, plot_bgcolor="white")
-    plt = PlotlyJS.plot(PlotlyJS.scatter(),layout)
+    plt = PlotlyBase.Plot(PlotlyBase.scatter(),layout)
     pmax = 0.
     pmin = Inf
 
@@ -19,7 +19,7 @@ function pxy_diagram(model,T;iscrit=nothing,check_lle=false,lle_present=false,Np
 end
 
 function pxy_diagram!(plt,model,T;iscrit=nothing,check_lle=false,lle_present=false,Npoints=1000,color=:red,style=:solid)
-    p = plt.plot.layout[:yaxis][:range]
+    p = plt.layout[:yaxis][:range]
     pmax = p[2]*1e5
     pmin = p[1]*1e5
     _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=iscrit,check_lle=check_lle,lle_present=lle_present,Npoints=Npoints,color=color,style=style)
@@ -125,8 +125,8 @@ function _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=nothing,check_lle=false, che
                         xx_vlle = vlle[6][1]
                         y_vlle = vlle[7][1]
 
-                        line_vlle = PlotlyJS.scatter(x=sort([xx_vlle,x_vlle,y_vlle]),y=[p_vlle,p_vlle,p_vlle]./1e5,mode="lines",line=PlotlyJS.attr(color=color, dash=style, width=3),name="VLLE curve")
-                        PlotlyJS.addtraces!(plt,line_vlle)
+                        line_vlle = PlotlyBase.scatter(x=sort([xx_vlle,x_vlle,y_vlle]),y=[p_vlle,p_vlle,p_vlle]./1e5,mode="lines",line=PlotlyBase.attr(color=color, dash=style, width=3),name="VLLE curve")
+                        PlotlyBase.addtraces!(plt,line_vlle)
 
                         idx_vlle = sum(p[1:idx_vlle[1],l].<p_vlle)
                         p[idx_vlle+1,l] = p_vlle
@@ -225,9 +225,9 @@ function _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=nothing,check_lle=false, che
                     break
                 end
             end
-            line_lle1 = PlotlyJS.scatter(x=x_lle[1:idxend],y=p_lle[1:idxend]./1e5,mode="lines",line=PlotlyJS.attr(color=color, dash=style, width=3),name="LLE curve")
-            line_lle2 = PlotlyJS.scatter(x=xx_lle[1:idxend],y=p_lle[1:idxend]./1e5,mode="lines",line=PlotlyJS.attr(color=color, dash=style, width=3),name="LLE curve")
-            PlotlyJS.addtraces!(plt,line_lle1,line_lle2)
+            line_lle1 = PlotlyBase.scatter(x=x_lle[1:idxend],y=p_lle[1:idxend]./1e5,mode="lines",line=PlotlyBase.attr(color=color, dash=style, width=3),name="LLE curve")
+            line_lle2 = PlotlyBase.scatter(x=xx_lle[1:idxend],y=p_lle[1:idxend]./1e5,mode="lines",line=PlotlyBase.attr(color=color, dash=style, width=3),name="LLE curve")
+            PlotlyBase.addtraces!(plt,line_lle1,line_lle2)
 
             lle_present = false
         end
@@ -235,19 +235,19 @@ function _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=nothing,check_lle=false, che
         if idxend == Npoints
             X = vcat(x[:,l],reverse(y[:,l]))
             Y = vcat(p[:,l],reverse(p[:,l]))
-            line_vle = PlotlyJS.scatter(x=X,y=Y./1e5,mode="lines",line=PlotlyJS.attr(color=color, dash=style, width=3),name="VLE curve")
-            PlotlyJS.addtraces!(plt,line_vle)
+            line_vle = PlotlyBase.scatter(x=X,y=Y./1e5,mode="lines",line=PlotlyBase.attr(color=color, dash=style, width=3),name="VLE curve")
+            PlotlyBase.addtraces!(plt,line_vle)
             break
         else
             X = vcat(x[1:idxend,l],reverse(y[1:idxend,l]))
             Y = vcat(p[1:idxend,l],reverse(p[1:idxend,l]))
-            line_vle = PlotlyJS.scatter(x=X,y=Y./1e5,mode="lines",line=PlotlyJS.attr(color=color, dash=style, width=3),name="VLE curve")
-            PlotlyJS.addtraces!(plt,line_vle)
+            line_vle = PlotlyBase.scatter(x=X,y=Y./1e5,mode="lines",line=PlotlyBase.attr(color=color, dash=style, width=3),name="VLE curve")
+            PlotlyBase.addtraces!(plt,line_vle)
         end 
     end
     
-    PlotlyJS.update!(plt,layout=PlotlyJS.Layout(yaxis = PlotlyJS.attr(range = [pmin/1.1/1e5,pmax*1.1/1e5])))
-    PlotlyJS.update!(plt,layout=PlotlyJS.Layout(xaxis = PlotlyJS.attr(range = [0.,1.])))
+    PlotlyBase.update!(plt,layout=PlotlyBase.Layout(yaxis = PlotlyBase.attr(range = [pmin/1.1/1e5,pmax*1.1/1e5])))
+    PlotlyBase.update!(plt,layout=PlotlyBase.Layout(xaxis = PlotlyBase.attr(range = [0.,1.])))
     return plt
 end
     

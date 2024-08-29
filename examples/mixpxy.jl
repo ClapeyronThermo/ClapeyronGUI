@@ -60,9 +60,9 @@ import Main.@timeout
             throw(TypeError("Temperature must be positive."))
         end
 
-        plt = @timeout 200 pxy_diagram(model, temp; color="blue")
-        trace_T = plt.plot.data
-        layout_T = plt.plot.layout
+        plt = pxy_diagram(model, temp; color="blue")
+        trace_T = plt.data
+        layout_T = plt.layout
     end
 
     @onbutton new_p_button begin
@@ -83,9 +83,9 @@ import Main.@timeout
             throw(TypeError("Pressure must be positive."))
         end
 
-        plt = @timeout 200 Txy_diagram(model, pre*1e5; color="red", check_lle=check_lle)
-        trace_p = plt.plot.data
-        layout_p = plt.plot.layout
+        plt = Txy_diagram(model, pre*1e5; color="red", check_lle=check_lle)
+        trace_p = plt.data
+        layout_p = plt.layout
     end
 
     @onbutton new_pT_button begin
@@ -101,10 +101,10 @@ import Main.@timeout
 
         model = @eval $eos([$species1,$species2])
 
-        plt = @timeout 200 pT_projection(model; color="purple")
+        plt = pT_projection(model; color="purple")
 
-        trace_pT = plt.plot.data
-        layout_pT = plt.plot.layout
+        trace_pT = plt.data
+        layout_pT = plt.layout
     end
 
 end

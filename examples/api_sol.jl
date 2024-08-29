@@ -2,7 +2,7 @@ module API_SOL
 using GenieFramework
 using Clapeyron, Main.ThermoPlots
 using CoolProp
-import PlotlyBase, PlotlyJS, PlotlyKaleido
+import PlotlyBase, PlotlyKaleido
 @genietools
 @app begin
     @in tab_selected = "temperature"

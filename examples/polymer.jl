@@ -2,7 +2,7 @@ module POLYMER
 using GenieFramework
 using Clapeyron, Main.ThermoPlots
 using CoolProp
-import PlotlyBase, PlotlyJS, PlotlyKaleido
+import PlotlyBase, PlotlyKaleido
 @genietools
 
 epsilon = Dict("PBD" => 288.84, 

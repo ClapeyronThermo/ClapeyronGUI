@@ -2,7 +2,7 @@ module TERNARY_DIAGRAM
 using GenieFramework
 using Clapeyron, Main.ThermoPlots
 using CoolProp
-import PlotlyBase, PlotlyJS, PlotlyKaleido
+import PlotlyBase, PlotlyKaleido
 import Main.@timeout
 @genietools
 
@@ -66,8 +66,8 @@ end
         end
 
         plt = @timeout 200 ternary_diagram(model, pre*1e5, temp; Npoints=Npoints, color=:blue, style=:solid, check_three_phase=false)
-        trace = plt.plot.data
-        layout = plt.plot.layout
+        trace = plt.data
+        layout = plt.layout
     end
 end
 end

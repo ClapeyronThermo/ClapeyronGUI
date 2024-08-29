@@ -17,11 +17,11 @@ function pT_curve(model;Npoints=200,color="red", style="solid")
 end
 
 function pT_curve!(plt,model;Npoints=200,color="red", style="solid")
-    p = plt.plot.layout[:yaxis][:range]
+    p = plt.layout[:yaxis][:range]
     pmax = p[2]
     pmin = p[1]
 
-    T = plt.plot.layout[:xaxis][:range]
+    T = plt.layout[:xaxis][:range]
     Tmax = T[2]
     Tmin = T[1]
 

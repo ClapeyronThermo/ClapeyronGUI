@@ -1,7 +1,7 @@
 function page_layout(content)
-StippleUI.layout(
+StippleUI.layout(style="background-color: #f5f5f5;",
     [
-        quasar(:header, style="background-color: #4063D8;", 
+        quasar(:header, style="background-color: #4063D8; height: 65px;", 
 toolbar(class="text-primary", style="background-color: #4063D8; ", [
           a(btn( flat=true, dense=true, icon="img:https://raw.githubusercontent.com/ClapeyronThermo/Clapeyron.jl/master/docs/src/assets/logo.svg"), href="$(Router.link_to(:get_home))"),
           toolbartitle("Clapeyron",style = "color: #ffffff; font-size: 1.7em; font-weight: bold;"),
@@ -24,8 +24,8 @@ toolbar(class="text-primary", style="background-color: #4063D8; ", [
                 )]),
        ])
 ),
-
-        cell(style="margin-top:40px", content)
+        quasar(:div, style="margin-top: 65px;"),
+        cell(style="margin-top:40px; background-color: #f5f5f5;", content)
 
     ],
     view="hHh lpR fFf",

@@ -18,7 +18,7 @@ import Main.@timeout
     @in new_pT_button = false
     @in log_y_pT = false
     model = PCSAFT(["methanol","hexane"])
-    @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","vdW","MultiFluid","Wilson","NRTL","UNIFAC","COSMOSAC"]
+    @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","cPR","RK","vdW","MultiFluid","Wilson","NRTL","UNIFAC","COSMOSAC"]
     @out color = ["red","blue","green","purple","black"]
     @out i = 1
     @out trace_T = []

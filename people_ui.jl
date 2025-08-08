@@ -3,7 +3,7 @@ include("layout.jl")
 h1("Developers")
 p("")
 row([cell(class="st-col col-3", [
-        imageview(src="https://media.licdn.com/dms/image/D5603AQEGMAZzdPepcw/profile-displayphoto-shrink_400_400/0/1695345101523?e=1721260800&v=beta&t=5u4nGrMktND95FVkQ5JIRbRWWzdSh3f_jp8vsAhCI4I",
+        imageview(src="https://media.licdn.com/dms/image/v2/D5603AQEGMAZzdPepcw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1695345101523?e=1757548800&v=beta&t=Uaxwv9doUq6-j8Jv4KsRHaDmKsDgg3nm2E1cr7tVcXA",
         height = "350px",
         width = "300px"),
         ]),

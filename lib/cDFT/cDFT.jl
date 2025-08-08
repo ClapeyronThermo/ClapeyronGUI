@@ -45,7 +45,4 @@ include("methods/converge.jl")
 include("methods/surface_tension.jl")
 include("methods/interfacial_tension.jl")
 
-println("All imported")
-
-
 end

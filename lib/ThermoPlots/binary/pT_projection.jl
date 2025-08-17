@@ -32,6 +32,9 @@ end
 function _pT_projection!(plt,model,Tmin,Tmax,pmin,pmax;Npoints=200,check_ucep=false,color=:red,style=:solid)
     present_ucep = false
         # Step 1: Saturation pressure of each component
+        if any(crit) && model <: ActivityModel
+            @error "Activity coefficient models can only model subcritical behavior"
+        end
         pures = split_model(model)
         crit = crit_pure.(pures)
         tc = [crit[k][1] for k in 1:length(pures)]

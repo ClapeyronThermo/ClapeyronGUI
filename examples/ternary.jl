@@ -21,7 +21,7 @@ end
     @in temp = 298.15
     @in new_button = false
 
-    @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","UNIFAC"]
+    @out Select_eos_list = ["MultiFluid","PCSAFT","SAFTVRMie","SAFTγMie","CPA","softSAFT","sPCSAFT","PCPSAFT","QPCPCSAFT","GEPCSAFT","CPPCSAFT","SAFTVRQMie","CKSAFT","PR","SRK","RK","PatelTeja","VTPR","PSRK","PTV","PR78","EPPR78","QCPR","tcPR","cPR","tcRK","vdW","Clausius","Berthelot","Wilson","NRTL","UNIQUAC","UNIFAC","COSMOSAC02","COSMOSAC10","COSMOSACdsp","HANNA"]
 
     @out trace = []
     @out layout = PlotlyBase.Layout(

@@ -74,7 +74,7 @@ import Main.@timeout
         # z = molality_to_composition.(model,salts,m)
         γ = zeros(N)
         for i in 1:N
-            γ[i] = mean_ionic_activity_coefficient(model,salts,pre,temp,m[i])[1]
+            γ[i] = @timeout 200 mean_ionic_activity_coefficient(model,salts,pre,temp,m[i])[1]
         end
 
         trace_T = [PlotlyBase.scatter(x=m,y=γ,mode="lines",line=PlotlyBase.attr(color="green", dash="solid", width=3),name="")]
@@ -120,7 +120,7 @@ import Main.@timeout
         # z = molality_to_composition.(model,salts,m)
         ϕ = zeros(N)
         for i in 1:N
-            ϕ[i] = osmotic_coefficient(model,salts,pre,temp,m[i])[1]
+            ϕ[i] = @timeout 200 osmotic_coefficient(model,salts,pre,temp,m[i])[1]
         end
 
         trace_p = [PlotlyBase.scatter(x=m,y=ϕ,mode="lines",line=PlotlyBase.attr(color="green", dash="solid", width=3),name="")]
@@ -168,7 +168,7 @@ import Main.@timeout
         z = molality_to_composition.(model,Ref(salts),m)
         p = zeros(N)
         for i in 1:N
-            bub = bubble_pressure(model,temp,z[i],method)
+            bub = @timeout 200 bubble_pressure(model,temp,z[i],method)
             p[i] = bub[1]
         end
 

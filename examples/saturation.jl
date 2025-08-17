@@ -15,7 +15,7 @@ import PlotlyBase, PlotlyKaleido
     @in log_y = true
     @in exp_data = false
 
-    @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","vdW","MultiFluid"]
+    @out Select_eos_list = ["SingleFluid","PCSAFT","SAFTVRMie","SAFTγMie","CPA","softSAFT","PCPSAFT","QPCPCSAFT","CPPCSAFT","SAFTVRQMie","CKSAFT","PR","SRK","RK","PatelTeja","VTPR","PSRK","PTV","PR78","EPPR78","QCPR","tcPR","cPR","tcRK","vdW","Clausius","Berthelot"]
     @out Select_property = ["Temperature","Pressure","Density","Volume",
                             "Internal Energy","Enthalpy","Entropy",
                             "Isobaric Heat Capacity","Isochoric Heat Capacity",

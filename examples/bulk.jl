@@ -1,7 +1,7 @@
 module BULK
 using GenieFramework
 using Clapeyron, Main.ThermoPlots
-using CoolProp
+using CoolProp, ClapeyronHANNA
 import PlotlyBase, PlotlyKaleido
 @genietools
 @app begin
@@ -23,7 +23,7 @@ import PlotlyBase, PlotlyKaleido
     @in log_x_p = false
     @in log_y_p = false
 
-    @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","vdW","MultiFluid"]
+    @out Select_eos_list = ["SingleFluid","PCSAFT","SAFTVRMie","SAFTγMie","CPA","softSAFT","PCPSAFT","QPCPCSAFT","CPPCSAFT","SAFTVRQMie","CKSAFT","PR","SRK","RK","PatelTeja","VTPR","PSRK","PTV","PR78","EPPR78","QCPR","tcPR","cPR","tcRK","vdW","Clausius","Berthelot"]
     @out Select_property = ["Density","Volume",
                             "Internal Energy","Enthalpy","Entropy",
                             "Isobaric Heat Capacity","Isochoric Heat Capacity",

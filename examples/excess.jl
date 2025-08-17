@@ -13,7 +13,7 @@ import PlotlyBase, PlotlyKaleido
     @in new_button = false
     @in y_axis = "Volume"
 
-    @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","vdW","UNIFAC","MultiFluid"]
+    @out Select_eos_list = ["MultiFluid","PCSAFT","SAFTVRMie","SAFTγMie","CPA","softSAFT","sPCSAFT","PCPSAFT","QPCPCSAFT","GEPCSAFT","CPPCSAFT","SAFTVRQMie","CKSAFT","PR","SRK","RK","PatelTeja","VTPR","PSRK","PTV","PR78","EPPR78","QCPR","tcPR","cPR","tcRK","vdW","Clausius","Berthelot","Wilson","NRTL","UNIQUAC","UNIFAC","COSMOSAC02","COSMOSAC10","COSMOSACdsp","HANNA"]
     @out Select_property = ["Volume",
                             "Internal Energy","Enthalpy","Entropy","Gibbs Free Energy",
                             "Isobaric Heat Capacity","Isochoric Heat Capacity",

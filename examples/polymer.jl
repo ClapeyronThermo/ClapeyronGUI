@@ -4,6 +4,7 @@ using Clapeyron, Main.ThermoPlots
 using CoolProp
 import PlotlyBase, PlotlyKaleido
 @genietools
+import Main.@timeout
 
 epsilon = Dict("PBD" => 288.84, 
                "PS" => 348.2, 

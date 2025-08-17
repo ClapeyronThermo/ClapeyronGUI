@@ -3,6 +3,8 @@ using GenieFramework
 using Clapeyron, Main.ThermoPlots
 using CoolProp
 import PlotlyBase, PlotlyKaleido
+import Main.@timeout
+
 @genietools
 @app begin
     @in tab_selected = "temperature"

@@ -18,7 +18,7 @@ import Main.@timeout
     @in new_pT_button = false
     @in log_y_pT = false
     model = PCSAFT(["methanol","hexane"])
-    @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","cPR","RK","vdW","MultiFluid","Wilson","NRTL","UNIFAC","COSMOSAC"]
+    @out Select_eos_list = ["MultiFluid","PCSAFT","SAFTVRMie","SAFTγMie","CPA","softSAFT","sPCSAFT","PCPSAFT","QPCPCSAFT","GEPCSAFT","CPPCSAFT","SAFTVRQMie","CKSAFT","PR","SRK","RK","PatelTeja","VTPR","PSRK","PTV","PR78","EPPR78","QCPR","tcPR","cPR","tcRK","vdW","Clausius","Berthelot","Wilson","NRTL","UNIQUAC","UNIFAC","COSMOSAC02","COSMOSAC10","COSMOSACdsp","HANNA"]
     @out color = ["red","blue","green","purple","black"]
     @out i = 1
     @out trace_T = []
@@ -60,7 +60,7 @@ import Main.@timeout
             throw(TypeError("Temperature must be positive."))
         end
 
-        plt = pxy_diagram(model, temp; color="blue")
+        plt = @timeout 200 pxy_diagram(model, temp; color="blue")
         trace_T = plt.data
         layout_T = plt.layout
     end
@@ -83,7 +83,7 @@ import Main.@timeout
             throw(TypeError("Pressure must be positive."))
         end
 
-        plt = Txy_diagram(model, pre*1e5; color="red", check_lle=check_lle)
+        plt = @timeout 200 Txy_diagram(model, pre*1e5; color="red", check_lle=check_lle)
         trace_p = plt.data
         layout_p = plt.layout
     end
@@ -101,7 +101,7 @@ import Main.@timeout
 
         model = @eval $eos([$species1,$species2])
 
-        plt = pT_projection(model; color="purple")
+        plt = @timeout 200 pT_projection(model; color="purple")
 
         trace_pT = plt.data
         layout_pT = plt.layout

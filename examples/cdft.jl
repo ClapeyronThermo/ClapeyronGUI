@@ -61,7 +61,7 @@ import Main.@timeout
         structure = SurfaceTension1DCart((p, temp, [1.]),[-10L,10L], 101)
 
         system = DFTSystem(model, structure)
-        converge!(system)
+        @timeout 200 converge!(system)
         sft = round(surface_tension(system)*1e3, digits=2)
 
         x = LinRange(-10L,10L,1001)

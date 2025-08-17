@@ -4,6 +4,9 @@ using Clapeyron, Main.ThermoPlots
 using Measurements, ForwardDiffOverMeasurements
 import PlotlyBase, PlotlyKaleido
 @genietools
+
+import Main.@timeout
+
 @app begin
     @in tab_selected = "pT"
 
@@ -67,11 +70,11 @@ import PlotlyBase, PlotlyKaleido
                             epsilon_assoc = nothing,
                             bondvol = nothing))
 
-        (Tc,Pc,vc) = crit_pure(model)
+        (Tc,Pc,vc) =  @timeout 200 crit_pure(model)
         ρc = 1/vc
 
         T = LinRange(0.6*Tc,Tc,Npoints)
-        sat = saturation_pressure.(model_err,T)
+        sat =  @timeout 200 saturation_pressure.(model_err,T)
 
         psat = [sat[i][1].val for i in 1:Npoints]
         psat_err = [sat[i][1].err for i in 1:Npoints]
@@ -196,11 +199,11 @@ import PlotlyBase, PlotlyKaleido
                             epsilon_assoc = nothing,
                             bondvol = nothing))
 
-        (Tc,Pc,vc) = crit_pure(model)
+        (Tc,Pc,vc) = @timeout 200 crit_pure(model)
         ρc = 1/vc
 
         T = LinRange(0.6*Tc,Tc,Npoints)
-        sat = saturation_pressure.(model_err,T)
+        sat = @timeout 200 saturation_pressure.(model_err,T)
 
         psat = [sat[i][1].val for i in 1:Npoints]
         psat_err = [sat[i][1].err for i in 1:Npoints]
@@ -339,62 +342,62 @@ import PlotlyBase, PlotlyKaleido
 
         T = LinRange(250,500,200)
         if Selected_property == "Volume"
-            y = volume.(model_err,pre,T)
+            y =  @timeout 200 volume.(model_err,pre,T)
             y_err = [y[i].err for i in 1:200].*1e3
             y = [y[i].val for i in 1:200].*1e3
             y_label = "Volume / (dm³/mol)"
         elseif Selected_property == "Density"
-            y = 1e-3./volume.(model_err,pre,T)
+            y =  @timeout 200 1e-3./volume.(model_err,pre,T)
             y_err = [y[i].err for i in 1:200]
             y = [y[i].val for i in 1:200]
             y_label = "Density / (mol/dm³)"
         elseif Selected_property == "Internal Energy"
-            y = internal_energy.(model_err,pre,T)
+            y =  @timeout 200 internal_energy.(model_err,pre,T)
             y_err = [y[i].err for i in 1:200]
             y = [y[i].val for i in 1:200]
             y_label = "Internal Energy / (J/mol)"
         elseif Selected_property == "Enthalpy"
-            y = enthalpy.(model_err,pre,T)
+            y = @timeout 200 enthalpy.(model_err,pre,T)
             y_err = [y[i].err for i in 1:200]
             y = [y[i].val for i in 1:200]
             y_label = "Enthalpy / (J/mol)"
         elseif Selected_property == "Entropy"
-            y = entropy.(model_err,pre,T)
+            y = @timeout 200 entropy.(model_err,pre,T)
             y_err = [y[i].err for i in 1:200]
             y = [y[i].val for i in 1:200]
             y_label = "Entropy / (J/mol K)"
         elseif Selected_property == "Isobaric Heat Capacity"
-            y = isobaric_heat_capacity.(model_err,pre,T)
+            y = @timeout 200 isobaric_heat_capacity.(model_err,pre,T)
             y_err = [y[i].err for i in 1:200]
             y = [y[i].val for i in 1:200]
             y_label = "Isobaric Heat Capacity / (J/mol K)"
         elseif Selected_property == "Isochoric Heat Capacity"
-            y = isochoric_heat_capacity.(model_err,pre,T)
+            y = @timeout 200 isochoric_heat_capacity.(model_err,pre,T)
             y_err = [y[i].err for i in 1:200]
             y = [y[i].val for i in 1:200]
             y_label = "Isochoric Heat Capacity / (J/mol K)"
         elseif Selected_property == "Speed of Sound"
-            y = speed_of_sound.(model_err,pre,T)
+            y = @timeout 200 speed_of_sound.(model_err,pre,T)
             y_err = [y[i].err for i in 1:200]
             y = [y[i].val for i in 1:200]
             y_label = "Speed of Sound / (m/s)"
         elseif Selected_property == "Joule-Thomson Coefficient"
-            y = joule_thomson_coefficient.(model_err,pre,T)
+            y = @timeout 200 joule_thomson_coefficient.(model_err,pre,T)
             y_err = [y[i].err for i in 1:200]
             y = [y[i].val for i in 1:200]
             y_label = "Joule-Thomson Coefficient / (K/bar)"
         elseif Selected_property == "Isentropic Compressibility"
-            y = isentropic_compressibility.(model_err,pre,T)
+            y = @timeout 200 isentropic_compressibility.(model_err,pre,T)
             y_err = [y[i].err for i in 1:200]
             y = [y[i].val for i in 1:200]
             y_label = "Isentropic Compressibility / (1/bar)"
         elseif Selected_property == "Isothermal Compressibility"
-            y = isothermal_compressibility.(model_err,pre,T)
+            y = @timeout 200 isothermal_compressibility.(model_err,pre,T)
             y_err = [y[i].err for i in 1:200]
             y = [y[i].val for i in 1:200]
             y_label = "Isothermal Compressibility / (1/bar)"
         elseif Selected_property == "Isobaric Expansivity"
-            y = isobaric_expansivity.(model_err,pre,T)
+            y = @timeout 200 isobaric_expansivity.(model_err,pre,T)
             y_err = [y[i].err for i in 1:200]
             y = [y[i].val for i in 1:200]
             y_label = "Isobaric Expansivity / (1/K)"

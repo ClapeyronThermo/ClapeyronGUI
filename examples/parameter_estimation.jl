@@ -4,6 +4,7 @@ using Clapeyron, Main.ThermoPlots
 using Metaheuristics, DataFrames, CSV
 import PlotlyBase, PlotlyKaleido
 @genietools
+import Main.@timeout
 
 @app begin
     @in tab_selected = "pT"

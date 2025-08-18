@@ -37,11 +37,11 @@ function _Txy_diagram(plt,model,p,Tmax,Tmin;iscrit=nothing,check_lle=false, chec
             pc = [crit[k][2] for k in 1:length(pures)]
             crit = pc.<p
         else
-            crit = iscrit[j]
+            crit = iscrit
         end
 
         # Check whether or not none, one or both components are supercritical
-        if any(crit) && model <: ActivityModel
+        if any(crit) && (typeof(model) <: Clapeyron.ActivityModel)
             @error "Activity coefficient models can only model subcritical behavior"
         elseif all(crit)
             @error "Critical point is below the temperature of interest for all species"

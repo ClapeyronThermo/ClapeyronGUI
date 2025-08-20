@@ -17,7 +17,7 @@ function ternary_diagram(model,p,T; Npoints=200,color=:red,style=:solid,check_th
             caxis=make_ax(components[3], -45),
             bgcolor="#ffffff",
         ))
-    plt = plot(PlotlyBase.scatterternary(),layout)
+    plt = PlotlyBase.Plot(PlotlyBase.scatterternary(),layout)
     if typeof(model)<:Clapeyron.ActivityModel
         method = RRTPFlash
     else

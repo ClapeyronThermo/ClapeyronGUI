@@ -32,9 +32,41 @@ segment = Dict("PBD" => 0.0245,
                "PαMS" => 0.0204, 
                "PMMA" => 0.027)
 
+SAFTgammaMieGroups = Dict(
+    "PBD" => ["CH="=>2,"CH2"=>1],
+    "PS" => ["CH2"=>1,"aCH"=>5,"aCCH"=>1],
+    "LDPE" => ["CH2"=>2],
+    "PBMA" => ["CH3"=>2,"CH2"=>4,"C"=>1,"COO"=>1],
+    "PIB" => ["CH2"=>1,"CH3"=>2,"C"=>1],
+    "PMMA" => ["CH2"=>1,"CH3"=>2,"COO"=>1,"C"=>1]
+)
+
+UNIFACGroups = Dict(
+    "PBD" => ["CH=CH"=>1,"CH2"=>1],
+    "PS" => ["CH2"=>1,"ACH"=>5,"ACCH"=>1],
+    "LDPE" => ["CH2"=>2],
+    "PBMA" => ["CH3"=>2,"CH2"=>4,"C"=>1,"COO"=>1],
+    "PIB" => ["CH2"=>1,"CH3"=>2,"C"=>1],
+    "PMMA" => ["CH2"=>1,"CH3"=>2,"COO"=>1,"C"=>1]
+)
+
+Monomer_MW = Dict(
+    "PBD" => 54.09044,
+    "PS" => 104.14912,
+    "PDMS" => 74.0,
+    "LDPE" => 28.05316,
+    "PBMA" => 142.19556,
+    "PIB" => 56.10632,
+    "PαMS" => 118.1757,
+    "PMMA" => 100.11582
+)
+
 @app begin
     @in tab_selected = "gas_solubility"
-
+    @in Select_eos_1 = "PCSAFT"
+    @out Select_eos_list_1 = ["PCSAFT","SAFTγMie"]
+    @in Select_eos_2 = "PCSAFT"
+    @out Select_eos_list_2 = ["PCSAFT","SAFTγMie","UNIFAC","FH"]
     @in polymer = "PBD"
     @in Mw_poly = 1000
     @in polymer1 = "PBD"
@@ -69,16 +101,31 @@ segment = Dict("PBD" => 0.0245,
     
     @onbutton new_T_button begin
         Npoints = 200
-        polymer_param = ParamTable(:like,(
-            species = [polymer],
-            Mw = [Mw_poly],
-            epsilon = [epsilon[polymer]],
-            sigma = [sigma[polymer]],
-            segment = [segment[polymer]*Mw_poly],
-            n_H = [0],
-            n_e = [0]))
-        model = PCSAFT([polymer,gas]; userlocations=[polymer_param])
-        Mw = model.params.Mw.values
+        # try
+        if Select_eos_1 == "PCSAFT"
+            polymer_param = ParamTable(:like,(
+                species = [polymer],
+                Mw = [Mw_poly],
+                epsilon = [epsilon[polymer]],
+                sigma = [sigma[polymer]],
+                segment = [segment[polymer]*Mw_poly],
+                n_H = [0],
+                n_e = [0]))
+            model = PCSAFT([polymer,gas]; userlocations=[polymer_param])
+        elseif Select_eos_1 == "SAFTγMie"
+            N = round(Mw_poly / Monomer_MW[polymer])
+            monomer_groups = SAFTgammaMieGroups[polymer]
+            poly_groups = [(monomer_groups[i][1]=>Int(monomer_groups[i][2]*N)) for i in 1:length(monomer_groups)]
+            model = SAFTγMie([(polymer,poly_groups),gas])
+        else
+            notify(__model__, "Equation of State $Select_eos_1 is not implemented.", :warning)
+            throw(TypeError("Equation of State $Select_eos_1 is not implemented."))
+        end
+        # catch
+        #     notify(__model__, "Species $gas is not available in $Select_eos_1.", :warning)
+        #     throw(TypeError("Species $gas is not available in $Select_eos_1."))
+        # end
+        Mw = Clapeyron.mw(model)
         w = LinRange(1,0.8,Npoints)
         x = @. w*Mw[1]/(w*Mw[1]+(1-w)*Mw[2])
         
@@ -100,17 +147,47 @@ segment = Dict("PBD" => 0.0245,
     end
 
     @onbutton new_p_button begin
-        Npoints = 500
-        polymer_param = ParamTable(:like,(
-            species = [polymer1,polymer2],
-            Mw = [Mw_poly1,Mw_poly2],
-            epsilon = [epsilon[polymer1],epsilon[polymer2]],
-            sigma = [sigma[polymer1],sigma[polymer2]],
-            segment = [segment[polymer1]*Mw_poly1,segment[polymer2]*Mw_poly2],
-            n_H = [0,0],
-            n_e = [0,0]))
-        model = PCSAFT([polymer1,polymer2]; userlocations=[polymer_param])
-        Mw = model.params.Mw.values
+        Npoints = 1000
+        if Select_eos_2 == "PCSAFT"
+            polymer_param = ParamTable(:like,(
+                species = [polymer1,polymer2],
+                Mw = [Mw_poly1,Mw_poly2],
+                epsilon = [epsilon[polymer1],epsilon[polymer2]],
+                sigma = [sigma[polymer1],sigma[polymer2]],
+                segment = [segment[polymer1]*Mw_poly1,segment[polymer2]*Mw_poly2],
+                n_H = [0,0],
+                n_e = [0,0]))
+            model = PCSAFT([polymer1,polymer2]; userlocations=[polymer_param])
+        elseif Select_eos_2 == "SAFTγMie"
+            N1 = round(Mw_poly1 / Monomer_MW[polymer1])
+            N2 = round(Mw_poly2 / Monomer_MW[polymer2])
+            monomer_groups1 = SAFTgammaMieGroups[polymer1]
+            monomer_groups2 = SAFTgammaMieGroups[polymer2]
+            poly_groups1 = [(monomer_groups1[i][1]=>Int(monomer_groups1[i][2]*N1)) for i in 1:length(monomer_groups1)]
+            poly_groups2 = [(monomer_groups2[i][1]=>Int(monomer_groups2[i][2]*N2)) for i in 1:length(monomer_groups2)]
+            model = SAFTγMie([(polymer1,poly_groups1),(polymer2,poly_groups2)])
+        elseif Select_eos_2 == "FH"
+            N1 = round(Mw_poly1 / Monomer_MW[polymer1])
+            N2 = round(Mw_poly2 / Monomer_MW[polymer2])
+            model = FloryHuggins([polymer1,polymer2],[N1,N2])
+        elseif Select_eos_2 == "UNIFAC"
+            N1 = round(Mw_poly1 / Monomer_MW[polymer1])
+            N2 = round(Mw_poly2 / Monomer_MW[polymer2])
+            monomer_groups1 = UNIFACGroups[polymer1]
+            monomer_groups2 = UNIFACGroups[polymer2]
+            poly_groups1 = [(monomer_groups1[i][1]=>Int(monomer_groups1[i][2]*N1)) for i in 1:length(monomer_groups1)]
+            poly_groups2 = [(monomer_groups2[i][1]=>Int(monomer_groups2[i][2]*N2)) for i in 1:length(monomer_groups2)]
+            model = UNIFAC([(polymer1,poly_groups1),(polymer2,poly_groups2)]; puremodel=BasicIdeal)
+        elseif Select_eos_2 == "UNIFACFV"
+            N1 = round(Mw_poly1 / Monomer_MW[polymer1])
+            N2 = round(Mw_poly2 / Monomer_MW[polymer2])
+            monomer_groups1 = UNIFACGroups[polymer1]
+            monomer_groups2 = UNIFACGroups[polymer2]
+            poly_groups1 = [(monomer_groups1[i][1]=>Int(monomer_groups1[i][2]*N1)) for i in 1:length(monomer_groups1)]
+            poly_groups2 = [(monomer_groups2[i][1]=>Int(monomer_groups2[i][2]*N2)) for i in 1:length(monomer_groups2)]
+            model = UNIFACFV([(polymer1,poly_groups1),(polymer2,poly_groups2)]; puremodel=BasicIdeal)
+        end
+        Mw = [Mw_poly1,Mw_poly2]
 
         T = LinRange(300,500,Npoints)
         p = 1e5 
@@ -120,23 +197,35 @@ segment = Dict("PBD" => 0.0245,
         K0 = [1e3,1e-3]
         idxend = Npoints
 
-        (x,n,G) = tp_flash(model,p,T[1],z0,MichelsenTPFlash(equilibrium=:lle))
+        (x,n,G) = tp_flash(model,p,T[1],z0,RRTPFlash(equilibrium=:lle))
         # println(x)
         K0 = nothing
-        if abs(x[1,1]-x[2,1]) > 1e-4
-            w[1,1] = x[1,1].*Mw[1] ./ sum(x[1,:].*Mw)
-            w[1,2] = x[2,1].*Mw[1] ./ sum(x[2,:].*Mw)
-            K0 = x[2,:]./x[1,:]
+        if abs(x[1,1]-x[2,1])/x[1,1] > 1e-4
+            if x[1,1] < x[2,1]
+                w[1,1] = x[2,1].*Mw[1] ./ sum(x[2,:].*Mw)
+                w[1,2] = x[1,1].*Mw[1] ./ sum(x[1,:].*Mw)
+                K0 = x[1,:]./x[2,:]
+            else
+                w[1,1] = x[1,1].*Mw[2] ./ sum(x[1,:].*Mw)
+                w[1,2] = x[2,1].*Mw[2] ./ sum(x[2,:].*Mw)
+                K0 = x[2,:]./x[1,:]
+            end
             z0 = (x[1,:]+x[2,:])/2
             for i in 2:Npoints
-                (x,n,G) = tp_flash(model,p,T[i],z0,MichelsenTPFlash(K0=K0,equilibrium=:lle))
-                w[i,1] = x[1,1].*Mw[1] ./ sum(x[1,:].*Mw)
-                w[i,2] = x[2,1].*Mw[1] ./ sum(x[2,:].*Mw)
-                K0 = x[2,:]./x[1,:]
+                (x,n,G) = tp_flash(model,p,T[i],z0,RRTPFlash(K0=K0,equilibrium=:lle))
+                if x[1,1] > x[2,1]
+                    w[i,1] = x[1,1].*Mw[1] ./ sum(x[1,:].*Mw)
+                    w[i,2] = x[2,1].*Mw[1] ./ sum(x[2,:].*Mw)
+                    K0 = x[2,:]./x[1,:]
+                else
+                    w[i,1] = x[2,1].*Mw[1] ./ sum(x[2,:].*Mw)
+                    w[i,2] = x[1,1].*Mw[1] ./ sum(x[1,:].*Mw)
+                    K0 = x[1,:]./x[2,:]
+                end
                 z0 = (x[1,:]+x[2,:])/2
-                if abs(x[1,1]-x[2,1]) < 1e-4
+                if abs(x[1,1]-x[2,1])/x[1,1] < 1e-4
                     # println(x)
-                    idxend = i-1
+                    idxend = i
                     break
                 end
             end

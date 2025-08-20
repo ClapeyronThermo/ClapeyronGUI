@@ -41,7 +41,7 @@ function _pxy_diagram!(plt,model,T,pmax,pmin;iscrit=nothing,check_lle=false, che
     end
 
     # Check whether or not none, one or both components are supercritical
-    if any(crit) && model <: ActivityModel
+    if any(crit) & (typeof(model) <: Clapeyron.ActivityModel)
             @error "Activity coefficient models can only model subcritical behavior"
     elseif all(crit)
         @error "Critical point is below the temperature of interest for all species"

@@ -1,6 +1,6 @@
 module EXCESS
 using GenieFramework
-using Clapeyron, Main.ThermoPlots
+using Clapeyron, ClapeyronHANNA, Main.ThermoPlots
 using CoolProp
 import PlotlyBase, PlotlyKaleido
 @genietools
@@ -42,13 +42,21 @@ import PlotlyBase, PlotlyKaleido
         Npoints = 200
         eos = Symbol(Select_eos)
         try
-            model = @eval $eos([$species1,$species2])
+            if contains(Select_eos, "COSMO")
+                model = @eval $eos([$species1,$species2]; use_nist_database=true)
+            else
+                model = @eval $eos([$species1,$species2])
+            end
         catch
             notify(__model__, "Species $species1 or $species2 are not available in $Select_eos.", :warning)
             throw(TypeError("Species $species1 or $species2 are not available in $Select_eos."))
         end
 
-        model = @eval $eos([$species1,$species2])
+        if contains(Select_eos, "COSMO")
+            model = @eval $eos([$species1,$species2]; use_nist_database=true)
+        else
+            model = @eval $eos([$species1,$species2])
+        end
 
         if temp < 0
             notify(__model__, "Temperature must be positive.", :warning)

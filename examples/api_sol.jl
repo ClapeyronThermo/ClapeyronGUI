@@ -29,7 +29,7 @@ import Main.@timeout
     @in log_y_T = false
     @in log_y_p = false
 
-    @out Select_eos_list = ["PCSAFT","SAFTVRMie","SAFTγMie","PR","RK","vdW","UNIFAC"]
+    @out Select_eos_list = ["PCSAFT","SAFTγMie","UNIFAC","COSMOSAC02","COSMOSAC10","COSMOSACdsp"]
     @out Select_api = ["ibuprofen","paracetamol"]
     @out Select_solvent = ["water","ethanol","methanol","acetone","benzene","toluene","hexane","octane","decane"]
 

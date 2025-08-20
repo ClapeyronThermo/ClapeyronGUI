@@ -1,6 +1,6 @@
 module MIXPXY
 using GenieFramework, StippleUI
-using Clapeyron, Main.ThermoPlots
+using Clapeyron, ClapeyronHANNA, Main.ThermoPlots
 using CoolProp
 import PlotlyBase, PlotlyKaleido
 import Main.@timeout
@@ -46,14 +46,26 @@ import Main.@timeout
         i = 1
         eos = Symbol(Select_eos)
 
-        try
-            model = @eval $eos([$species1,$species2])
+         try
+            if contains(Select_eos, "COSMO")
+                model = @eval $eos([$species1,$species2]; use_nist_database=true)
+            elseif Select_eos == "HANNA"
+                model = @eval $eos([$species1,$species2]; puremodel=PR)
+            else
+                model = @eval $eos([$species1,$species2])
+            end
         catch
             notify(__model__, "Species $species1 or $species2 are not available in $Select_eos.", :warning)
             throw(TypeError("Species $species1 or $species2 are not available in $Select_eos."))
         end
 
-        model = @eval $eos([$species1,$species2])
+        if contains(Select_eos, "COSMO")
+            model = @eval $eos([$species1,$species2]; use_nist_database=true)
+        elseif Select_eos == "HANNA"
+            model = @eval $eos([$species1,$species2]; puremodel=PR)
+        else
+            model = @eval $eos([$species1,$species2])
+        end
 
         if temp < 0
             notify(__model__, "Temperature must be positive.", :warning)
@@ -70,13 +82,25 @@ import Main.@timeout
         eos = Symbol(Select_eos)
 
         try
-            model = @eval $eos([$species1,$species2])
+            if contains(Select_eos, "COSMO")
+                model = @eval $eos([$species1,$species2]; use_nist_database=true)
+            elseif Select_eos == "HANNA"
+                model = @eval $eos([$species1,$species2]; puremodel=PR)
+            else
+                model = @eval $eos([$species1,$species2])
+            end
         catch
             notify(__model__, "Species $species1 or $species2 are not available in $Select_eos.", :warning)
             throw(TypeError("Species $species1 or $species2 are not available in $Select_eos."))
         end
 
-        model = @eval $eos([$species1,$species2])
+        if contains(Select_eos, "COSMO")
+            model = @eval $eos([$species1,$species2]; use_nist_database=true)
+        elseif Select_eos == "HANNA"
+            model = @eval $eos([$species1,$species2]; puremodel=PR)
+        else
+            model = @eval $eos([$species1,$species2])
+        end
 
         if pre < 0
             notify(__model__, "Pressure must be positive.", :warning)

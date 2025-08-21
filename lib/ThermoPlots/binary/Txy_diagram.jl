@@ -383,7 +383,7 @@ function _Txy_diagram(plt,model::Clapeyron.ActivityModel,p,Tmax,Tmin;iscrit=noth
             if check_lle && !lle_present
                 T_test = maximum([Tmin-50,250])
                 x_test = [0.5,0.5]
-                tpd = Clapeyron.tpd(model,p,T_test,x_test)
+                tpd = Clapeyron.tpd(model,p,T_test,x_test, lle=true)
                 if length(tpd[1])>1
                     Klle = tpd[1][1]./tpd[1][2]
                     lle_present=true

@@ -189,6 +189,12 @@ Monomer_MW = Dict(
         end
         Mw = [Mw_poly1,Mw_poly2]
 
+        if typeof(model) <: Clapeyron.ActivityModel
+            method = RRTPFlash
+        else
+            method = MichelsenTPFlash
+        end
+
         T = LinRange(300,500,Npoints)
         p = 1e5 
         w = zeros(Npoints,2)
@@ -197,7 +203,7 @@ Monomer_MW = Dict(
         K0 = [1e3,1e-3]
         idxend = Npoints
 
-        (x,n,G) = tp_flash(model,p,T[1],z0,RRTPFlash(equilibrium=:lle))
+        (x,n,G) = tp_flash(model,p,T[1],z0,method(equilibrium=:lle))
         # println(x)
         K0 = nothing
         if abs(x[1,1]-x[2,1])/x[1,1] > 1e-4
@@ -212,7 +218,7 @@ Monomer_MW = Dict(
             end
             z0 = (x[1,:]+x[2,:])/2
             for i in 2:Npoints
-                (x,n,G) = tp_flash(model,p,T[i],z0,RRTPFlash(K0=K0,equilibrium=:lle))
+                (x,n,G) = tp_flash(model,p,T[i],z0,method(K0=K0,equilibrium=:lle))
                 if x[1,1] > x[2,1]
                     w[i,1] = x[1,1].*Mw[1] ./ sum(x[1,:].*Mw)
                     w[i,2] = x[2,1].*Mw[1] ./ sum(x[2,:].*Mw)

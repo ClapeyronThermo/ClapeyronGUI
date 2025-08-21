@@ -391,7 +391,7 @@ function _pxy_diagram!(plt,model::Clapeyron.ActivityModel,T,pmax,pmin;iscrit=not
         if check_lle
             p_test = 10*pmax
             x_test = [0.5,0.5]
-            tpd = Clapeyron.tpd(model,p_test,T,x_test)
+            tpd = Clapeyron.tpd(model,p_test,T,x_test, lle=true)
             if length(tpd[1])>1
                 Klle = tpd[1][1]./tpd[1][2]
                 lle_present=true
